@@ -13,6 +13,37 @@ html {
   font-family: "Inter Tight", sans-serif;
 }
 
+.body {
+  background-color: var(--background-color);
+}
+
 .text-heading {
   font-family: Inter, sans-serif;
+}
+
+.box-title {
+  text-align: center;
+  color: var(--primary-color);
+}
+
+.box-text {
+  text-align: center;
+  color: var(--text-color);
+}
+
+div.container {
+  text-align: center;
+}
+
+.container-amenities {
+  background-color: var(--accent-color);
+}
+
+.amenitiesUL {
+  display: inline-block;
+  text-align: left;
+}
+
+.container-contact {
+  background-color: var(--accent-color);
 }
