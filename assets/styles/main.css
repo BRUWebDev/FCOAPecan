@@ -1,75 +1,18 @@
 :root {
-  --primary-color: rgb(34 255 255);
-  --primary-text-color: rgb(200 255 255);
-  --secondary-text-color: rgb(210 210 210);
-  --secondary-color: rgb(0 255 255);
-  --background-color: rgb(0 20 24);
-  --dark-color: #000;
+  --primary-color: #7F9183;
+  --text-color: #586F6B;
+  --secondary-color: #a3a395;
+  --accent-color: #e0ae91;
+  --background-color: #DDD5D0;
 }
 
 html {
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  font-family: "Inter Tight", sans-serif;
 }
 
-.background-gradient {
-  background: linear-gradient(
-    to bottom right,
-    var(--primary-color),
-    var(--background-color),
-    var(--background-color),
-    var(--primary-color)
-  );
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-}
-
-.text-header {
-  font-family: Orbitron, sans-serif;
-  color: var(--primary-color);
-  text-shadow:
-    0 0 10px var(--primary-color),
-    0 0 25px var(--primary-text-color);
-}
-
-.text-general {
-  font-family: "Share Tech Mono", sans-serif;
-  color: var(--secondary-text-color);
-}
-
-.image-logo {
-  position: relative;
-  height: 22vh;
-  display: block;
-  margin: auto;
-}
-
-.container-logo {
-  position: fixed;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: -9;
-  width: 50%;
-  text-align: center;
-}
-
-.container-footer {
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  padding: 1.5rem;
-  border-top: 2px solid var(--primary-color);
-}
-
-.btn.btn-outline-primary {
-  color: var(--primary-color);
-  border-color: var(--primary-color);
-}
-
-.btn.btn-outline-primary:hover {
-  background-color: var(--primary-color);
-  color: var(--background-color);
+.text-heading {
+  font-family: "Inter", sans-serif;
 }
