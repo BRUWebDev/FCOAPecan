@@ -1,9 +1,9 @@
 :root {
-  --primary-color: #7F9183;
-  --text-color: #586F6B;
+  --primary-color: #7f9183;
+  --text-color: #586f6b;
   --secondary-color: #a3a395;
   --accent-color: #e0ae91;
-  --background-color: #DDD5D0;
+  --background-color: #ddd5d0;
 }
 
 html {
