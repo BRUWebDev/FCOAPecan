@@ -21,29 +21,11 @@ html {
   font-family: Inter, sans-serif;
 }
 
-.box-title {
-  text-align: center;
-  color: var(--primary-color);
+.custom-color-card {
+  color: var(--background-color);
+  background-color: var(--secondary-color);
 }
 
-.box-text {
-  text-align: center;
+.custom-color-card-title {
   color: var(--text-color);
-}
-
-div.container {
-  text-align: center;
-}
-
-.container-amenities {
-  background-color: var(--accent-color);
-}
-
-.amenitiesUL {
-  display: inline-block;
-  text-align: left;
-}
-
-.container-contact {
-  background-color: var(--accent-color);
 }
