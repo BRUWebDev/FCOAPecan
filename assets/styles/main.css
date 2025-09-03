@@ -10,9 +10,32 @@ html {
   margin: 0;
   padding: 0;
   min-height: 100vh;
+}
+
+body.default {
   font-family: "Inter Tight", sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 .text-heading {
   font-family: Inter, sans-serif;
+}
+
+.hero-container {
+  height: 90vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  background-image: url("../media/fairway_condiminiums.jpg");
+  background-blend-mode: overlay;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.alert.alert-accent {
+  background-color: var(--accent-color);
+  color: var(--text-color);
 }
