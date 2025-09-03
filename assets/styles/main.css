@@ -8,6 +8,8 @@
   /* --background-color: #7f9183; */
   --background-color: #144934;
   --secondary-background-color: #fdf9ee;
+  --tertiary-background-color: #f3e6d0;
+
   /* --secondary-background-color: #f3e6d0; */
   --shadow-1: rgba(0, 0, 0, 0.1); /* tiny crisp */
   --shadow-2: rgba(0, 0, 0, 0.2); /* mid */
@@ -62,7 +64,11 @@ body {
   border-right: 2px solid var(--accent-color);
 }
 
-.custom-color-card {
+.container-amenities {
+  background-color: var(--tertiary-background-color);
+}
+
+.card.card-secondary {
   color: var(--background-color);
   background-color: var(--secondary-color);
 }
