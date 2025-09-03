@@ -35,10 +35,6 @@ body {
   background-color: var(--secondary-background-color);
 }
 
-.body {
-  background-color: var(--background-color);
-}
-
 .text-heading {
   font-family: Inter, sans-serif !important;
   color: var(--heading-text-color);
