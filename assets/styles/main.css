@@ -1,9 +1,17 @@
 :root {
   --primary-color: #7f9183;
   --text-color: #586f6b;
+  --heading-text-color: #b08c6d;
   --secondary-color: #a3a395;
-  --accent-color: #e0ae91;
-  --background-color: #ddd5d0;
+  /* --accent-color: #e0ae91; */
+  --accent-color: #ffe32a;
+  /* --background-color: #7f9183; */
+  --background-color: #144934;
+  --secondary-background-color: #fdf9ee;
+  /* --secondary-background-color: #f3e6d0; */
+  --shadow-1: rgba(0, 0, 0, 0.1); /* tiny crisp */
+  --shadow-2: rgba(0, 0, 0, 0.2); /* mid */
+  --shadow-3: rgba(0, 0, 0, 0.3); /* large soft */
 }
 
 html {
@@ -12,20 +20,30 @@ html {
   min-height: 100vh;
 }
 
-body.default {
-  font-family: "Inter Tight", sans-serif;
-  background-color: var(--background-color);
-  color: var(--text-color);
+body {
+  font-family: "Inter Tight", sans-serif !important;
+  background-color: var(--background-color) !important;
+  color: var(--text-color) !important;
+}
+
+.default.container {
+  padding: 0;
+  box-shadow:
+    0 1px 1px var(--shadow-1),
+    0 8px 20px var(--shadow-2),
+    0 30px 60px var(--shadow-3);
+  background-color: var(--secondary-background-color);
 }
 
 .text-heading {
-  font-family: Inter, sans-serif;
+  font-family: Inter, sans-serif !important;
+  color: var(--heading-text-color);
 }
 
-.hero-container {
-  height: 90vh;
+.container-hero {
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  background-image: url("../media/fairway_condiminiums.jpg");
+  background-image: url("../media/fairway_condiminiums_2.jpg");
   background-blend-mode: overlay;
   background-position: center;
   background-repeat: no-repeat;
@@ -38,4 +56,8 @@ body.default {
 .alert.alert-accent {
   background-color: var(--accent-color);
   color: var(--text-color);
+}
+
+.border-right-accent {
+  border-right: 2px solid var(--accent-color);
 }
