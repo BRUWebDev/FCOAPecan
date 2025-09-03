@@ -35,6 +35,10 @@ body {
   background-color: var(--secondary-background-color);
 }
 
+.body {
+  background-color: var(--background-color);
+}
+
 .text-heading {
   font-family: Inter, sans-serif !important;
   color: var(--heading-text-color);
@@ -60,4 +64,13 @@ body {
 
 .border-right-accent {
   border-right: 2px solid var(--accent-color);
+}
+
+.custom-color-card {
+  color: var(--background-color);
+  background-color: var(--secondary-color);
+}
+
+.custom-color-card-title {
+  color: var(--text-color);
 }
