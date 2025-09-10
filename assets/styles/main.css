@@ -70,7 +70,3 @@ body {
   color: var(--background-color);
   background-color: var(--secondary-color);
 }
-
-.custom-color-card-title {
-  color: var(--text-color);
-}
