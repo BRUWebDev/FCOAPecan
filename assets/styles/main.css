@@ -3,15 +3,14 @@
   --secondary-color: #a3a395;
   --text-color: #586f6b;
   --heading-text-color: #bf9978;
-  --accent-color: #E3B341;
-  --secondary-accent-color: #A14E2E;
+  --accent-color: #e3b341;
+  --secondary-accent-color: #a14e2e;
   --background-color: #144934;
   --secondary-background-color: #fdf9ee;
   --tertiary-background-color: #f3e6d0;
-
-  --shadow-1: rgba(0, 0, 0, 0.1);
-  --shadow-2: rgba(0, 0, 0, 0.2);
-  --shadow-3: rgba(0, 0, 0, 0.3);
+  --shadow-1: rgb(0 0 0 / 10%);
+  --shadow-2: rgb(0 0 0 / 20%);
+  --shadow-3: rgb(0 0 0 / 30%);
 }
 
 html {
@@ -35,6 +34,10 @@ body {
   background-color: var(--secondary-background-color);
 }
 
+.background-tertiary {
+  background-color: var(--tertiary-background-color);
+}
+
 .text-heading {
   font-family: Inter, sans-serif !important;
   color: var(--heading-text-color);
@@ -42,7 +45,7 @@ body {
 
 .container-hero {
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgb(0 0 0 / 50%);
   background-image: url("../media/fairway_condiminiums_2.jpg");
   background-blend-mode: overlay;
   background-position: center;
@@ -62,10 +65,6 @@ body {
   border-right: 2px solid var(--accent-color);
 }
 
-.container-amenities {
-  background-color: var(--tertiary-background-color);
-}
-
 .card.card-secondary {
   color: var(--background-color);
   background-color: var(--secondary-color);
@@ -73,4 +72,29 @@ body {
 
 .custom-color-card-title {
   color: var(--text-color);
+}
+
+.card-board {
+  max-width: 300px;
+  margin: auto;
+  background-color: var(--primary-color);
+  color: var(--tertiary-background-color);
+  box-shadow:
+    0 1px 1px var(--shadow-1),
+    0 8px 20px var(--shadow-2),
+    0 12px 30px var(--shadow-3);
+}
+
+.image-board {
+  width: 15rem;
+  margin: auto;
+}
+
+.text-board-name {
+  color: var(--tertiary-background-color);
+  font-weight: 800;
+}
+
+.text-board-position {
+  color: var(--secondary-background-color);
 }
