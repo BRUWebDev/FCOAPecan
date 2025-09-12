@@ -43,6 +43,11 @@ body {
   color: var(--heading-text-color);
 }
 
+.link-icon {
+  text-decoration: none;
+  color: var(--tertiary-background-color);
+}
+
 .container-hero {
   height: 100vh;
   background-color: rgb(0 0 0 / 50%);
@@ -72,6 +77,15 @@ body {
 
 .custom-color-card-title {
   color: var(--text-color);
+}
+
+.card-map {
+  max-width: 500px;
+  height: 100%;
+  box-shadow:
+    0 1px 1px var(--shadow-1),
+    0 8px 20px var(--shadow-2),
+    0 12px 30px var(--shadow-3);
 }
 
 .card-board {
