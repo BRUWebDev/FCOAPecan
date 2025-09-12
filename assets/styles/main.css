@@ -3,8 +3,8 @@
   --secondary-color: #a3a395;
   --text-color: #586f6b;
   --heading-text-color: #bf9978;
-  --accent-color: #E3B341;
-  --secondary-accent-color: #A14E2E;
+  --accent-color: #e3b341;
+  --secondary-accent-color: #a14e2e;
   --background-color: #144934;
   --secondary-background-color: #fdf9ee;
   --tertiary-background-color: #f3e6d0;
@@ -24,6 +24,28 @@ body {
   font-family: "Inter Tight", sans-serif !important;
   background-color: var(--background-color) !important;
   color: var(--text-color) !important;
+}
+
+.btn.btn-primary {
+  background-color: var(--heading-text-color);
+  border-color: var(--heading-text-color);
+  color: var(--secondary-background-color);
+}
+
+.btn.btn-primary:hover {
+  background-color: var(--secondary-background-color);
+  color: var(--heading-text-color);
+}
+
+.btn.btn-secondary {
+  background-color: transparent;
+  color: var(--secondary-background-color);
+  border-color: var(--secondary-background-color);
+}
+
+.btn.btn-secondary:hover {
+  background-color: var(--secondary-background-color);
+  color: var(--heading-text-color);
 }
 
 .default.container {
@@ -49,8 +71,13 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.text-hero {
+  color: var(--secondary-background-color);
 }
 
 .alert.alert-accent {
