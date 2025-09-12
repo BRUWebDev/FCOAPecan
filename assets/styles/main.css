@@ -34,6 +34,10 @@ body {
   background-color: var(--secondary-background-color);
 }
 
+.background-tertiary {
+  background-color: var(--tertiary-background-color);
+}
+
 .text-heading {
   font-family: Inter, sans-serif !important;
   color: var(--heading-text-color);
@@ -61,10 +65,6 @@ body {
   border-right: 4px solid var(--tertiary-background-color);
 }
 
-.container-amenities {
-  background-color: var(--tertiary-background-color);
-}
-
 .card.card-secondary {
   color: var(--background-color);
   background-color: var(--secondary-color);
@@ -72,4 +72,29 @@ body {
 
 .custom-color-card-title {
   color: var(--text-color);
+}
+
+.card-board {
+  max-width: 300px;
+  margin: auto;
+  background-color: var(--primary-color);
+  color: var(--tertiary-background-color);
+  box-shadow:
+    0 1px 1px var(--shadow-1),
+    0 8px 20px var(--shadow-2),
+    0 12px 30px var(--shadow-3);
+}
+
+.image-board {
+  width: 15rem;
+  margin: auto;
+}
+
+.text-board-name {
+  color: var(--tertiary-background-color);
+  font-weight: 800;
+}
+
+.text-board-position {
+  color: var(--secondary-background-color);
 }
