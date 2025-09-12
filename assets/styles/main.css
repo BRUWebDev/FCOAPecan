@@ -59,7 +59,7 @@ body {
 }
 
 .border-right-accent {
-  border-right: 2px solid var(--accent-color);
+  border-right: 4px solid var(--tertiary-background-color);
 }
 
 .container-amenities {
