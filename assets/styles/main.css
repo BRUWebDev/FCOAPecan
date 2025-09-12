@@ -8,9 +8,9 @@
   --background-color: #144934;
   --secondary-background-color: #fdf9ee;
   --tertiary-background-color: #f3e6d0;
-  --shadow-1: rgb(0 0 0 / 0.1);
-  --shadow-2: rgb(0 0 0 / 0.2);
-  --shadow-3: rgb(0 0 0 / 0.3);
+  --shadow-1: rgb(0 0 0 / 10%);
+  --shadow-2: rgb(0 0 0 / 20%);
+  --shadow-3: rgb(0 0 0 / 30%);
 }
 
 html {
@@ -41,7 +41,7 @@ body {
 
 .container-hero {
   height: 100vh;
-  background-color: rgba(0 0 0 / 0.5);
+  background-color: rgb(0 0 0 / 50%);
   background-image: url("../media/fairway_condiminiums_2.jpg");
   background-blend-mode: overlay;
   background-position: center;
