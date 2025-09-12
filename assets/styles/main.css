@@ -3,15 +3,14 @@
   --secondary-color: #a3a395;
   --text-color: #586f6b;
   --heading-text-color: #bf9978;
-  --accent-color: #E3B341;
-  --secondary-accent-color: #A14E2E;
+  --accent-color: #e3b341;
+  --secondary-accent-color: #a14e2e;
   --background-color: #144934;
   --secondary-background-color: #fdf9ee;
   --tertiary-background-color: #f3e6d0;
-
-  --shadow-1: rgba(0, 0, 0, 0.1);
-  --shadow-2: rgba(0, 0, 0, 0.2);
-  --shadow-3: rgba(0, 0, 0, 0.3);
+  --shadow-1: rgb(0 0 0 / 0.1);
+  --shadow-2: rgb(0 0 0 / 0.2);
+  --shadow-3: rgb(0 0 0 / 0.3);
 }
 
 html {
@@ -42,7 +41,7 @@ body {
 
 .container-hero {
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0 0 0 / 0.5);
   background-image: url("../media/fairway_condiminiums_2.jpg");
   background-blend-mode: overlay;
   background-position: center;
