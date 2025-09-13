@@ -47,3 +47,28 @@ async function loadAlert() {
 }
 
 loadAlert();
+
+function populateBoardMember(id, boardMember) {
+  switch (id) {
+    case "president":
+      document.getElementById("board-president-name").textContent =
+        boardMember.name;
+      break;
+    case "treasurer":
+      document.getElementById("board-treasurer-name").textContent =
+        boardMember.name;
+      break;
+    case "secretary":
+      document.getElementById("board-secretary-name").textContent =
+        boardMember.name;
+  }
+}
+
+async function loadBoard() {
+  const querySnapshot = await getDocs(collection(db, "board"));
+  querySnapshot.forEach((doc) => {
+    populateBoardMember(doc.id, doc.data());
+  });
+}
+
+loadBoard();
