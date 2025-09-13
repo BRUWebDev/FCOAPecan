@@ -1,0 +1,80 @@
+<html>
+  <head>
+    <title>FCOA Pecan Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="my-5">Admin Dashboard</h1>
+      <div class="bg-light p-4">
+        <h3 class="my-3">Alert</h3>
+        <form>
+          <div class="form-check form-switch form-check-reverse">
+            <input class="form-check-input" type="checkbox" id="alert-switch" />
+            <label class="form-check-label" for="switchCheckReverse"
+              >Active</label
+            >
+          </div>
+          <div class="mb-3">
+            <label for="alert-title" class="form-label">Title</label>
+            <input type="text" id="alert-title" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label for="alert-message" class="form-label">Message</label>
+            <textarea
+              type="text"
+              id="alert-message"
+              class="form-control"
+            ></textarea>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button type="submit" id="alert-save" class="btn btn-primary">
+              <span
+                id="alert-save-spinner"
+                class="spinner-border spinner-border-sm visually-hidden"
+                aria-hidden="true"
+              ></span>
+              <span id="alert-save-text">Save</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+      <div
+        id="toast"
+        class="toast align-items-center text-bg-success border-0"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="d-flex">
+          <div class="toast-body">Successfully saved alert.</div>
+          <button
+            type="button"
+            class="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="./assets/js/admin.js"></script>
+  </body>
+</html>
