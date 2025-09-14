@@ -5,6 +5,7 @@ import {
   getDocs,
   getFirestore,
   updateDoc,
+  writeBatch,
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -27,6 +28,9 @@ let alertRef = null;
 const alertSwitch = document.getElementById("alert-switch");
 const alertTitle = document.getElementById("alert-title");
 const alertMessage = document.getElementById("alert-message");
+let presidentName = document.getElementById("board-president-name");
+let treasurerName = document.getElementById("board-treasurer-name");
+let secretaryName = document.getElementById("board-secretary-name");
 const alertSave = document.getElementById("alert-save");
 const alertSaveText = document.getElementById("alert-save-text");
 const alertSaveSpinner = document.getElementById("alert-save-spinner");
@@ -62,20 +66,54 @@ async function loadAlert() {
 
 loadAlert();
 
-alertSave.addEventListener("click", async function (event) {
-  event.preventDefault();
-  setButtonStatusSaving();
+async function updateAlert() {
   await updateDoc(alertRef, {
     active: alertSwitch.checked,
     title: alertTitle.value,
     message: alertMessage.value,
   });
+}
+
+function populateBoardMember(id, boardMember) {
+  switch (id) {
+    case "president":
+      presidentName.value = boardMember.name;
+      break;
+    case "treasurer":
+      treasurerName.value = boardMember.name;
+      break;
+    case "secretary":
+      secretaryName.value = boardMember.name;
+  }
+}
+
+async function loadBoard() {
+  const querySnapshot = await getDocs(collection(db, "board"));
+  querySnapshot.forEach((doc) => {
+    populateBoardMember(doc.id, doc.data());
+  });
+}
+
+loadBoard();
+
+async function updateBoard() {
+  const batch = writeBatch(db);
+
+  const presidentRef = doc(db, "board", "president");
+  batch.update(presidentRef, { name: presidentName.value });
+  const treasurerRef = doc(db, "board", "treasurer");
+  batch.update(treasurerRef, { name: treasurerName.value });
+  const secretaryRef = doc(db, "board", "secretary");
+  batch.update(secretaryRef, { name: secretaryName.value });
+  await batch.commit();
+}
+
+alertSave.addEventListener("click", async function (event) {
+  event.preventDefault();
+  setButtonStatusSaving();
+  updateAlert();
+  updateBoard();
   setButtonStatusDone();
-  // const toastElList = document.querySelectorAll(".toast");
-  // const toastList = [...toastElList].map(
-  //   (toastEl) => new bootstrap.Toast(toastEl, option)
-  // );
   const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast);
   toastBootstrap.show();
-
 });

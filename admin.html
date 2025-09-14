@@ -17,8 +17,8 @@
     <div class="container">
       <h1 class="my-5">Admin Dashboard</h1>
       <div class="bg-light p-4">
-        <h3 class="my-3">Alert</h3>
         <form>
+          <h3 class="my-3">Alert</h3>
           <div class="form-check form-switch form-check-reverse">
             <input class="form-check-input" type="checkbox" id="alert-switch" />
             <label class="form-check-label" for="switchCheckReverse"
@@ -36,6 +36,25 @@
               id="alert-message"
               class="form-control"
             ></textarea>
+          </div>
+          <h3 class="my-5">Board</h3>
+          <div class="mb-3">
+            <label for="board-president-name" class="form-label"
+              >President</label
+            >
+            <input type="text" id="board-president-name" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label for="board-treasurer-name" class="form-label"
+              >Treasurer</label
+            >
+            <input type="text" id="board-treasurer-name" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label for="board-secretary-name" class="form-label"
+              >Secretary</label
+            >
+            <input type="text" id="board-secretary-name" class="form-control" />
           </div>
           <div class="d-flex justify-content-end">
             <button type="submit" id="alert-save" class="btn btn-primary">
