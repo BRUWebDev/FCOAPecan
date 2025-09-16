@@ -123,7 +123,7 @@ body {
   max-width: 300px;
   margin: auto;
   background-color: var(--primary-color);
-  color: var(--tertiary-background-color);
+  color: var(--secondary-background-color);
   box-shadow:
     0 1px 1px var(--shadow-1),
     0 8px 20px var(--shadow-2),
@@ -135,10 +135,6 @@ body {
   margin: auto;
 }
 
-.image-amenities {
-  color: var(--tertiary-background-color);
-}
-
 .text-board-name {
   color: var(--tertiary-background-color);
   font-weight: 800;
@@ -148,14 +144,26 @@ body {
   color: var(--secondary-background-color);
 }
 
-.text-background-color {
+.text-color {
   color: var(--text-color);
 }
 
-.text-secondary-background-color {
+.text-secondary-color {
+  color: var(--text-secondary-color);
+}
+
+.text-tertiary-color {
+  color: var(--text-tertiary-color);
+}
+
+.background-color {
+  color: var(--text-color);
+}
+
+.secondary-background-color {
   color: var(--secondary-background-color);
 }
 
-.text-tertiary-background-color {
+.tertiary-background-color {
   color: var(--tertiary-background-color);
 }
