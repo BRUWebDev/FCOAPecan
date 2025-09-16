@@ -2,6 +2,8 @@
   --primary-color: #7f9183;
   --secondary-color: #a3a395;
   --text-color: #586f6b;
+  --text-secondary-color: #fdf9ee;
+  --text-tertiary-color: #f3e6d0;
   --heading-text-color: #bf9978;
   --accent-color: #e3b341;
   --secondary-accent-color: #a14e2e;
@@ -84,10 +86,6 @@ body {
   justify-content: center;
 }
 
-.text-hero {
-  color: var(--secondary-background-color);
-}
-
 .alert.alert-accent {
   background-color: var(--accent-color);
   color: var(--text-color);
@@ -95,15 +93,6 @@ body {
 
 .border-right-accent {
   border-right: 4px solid var(--tertiary-background-color);
-}
-
-.card.card-secondary {
-  color: var(--background-color);
-  background-color: var(--secondary-color);
-}
-
-.custom-color-card-title {
-  color: var(--text-color);
 }
 
 .card-map {
@@ -126,6 +115,16 @@ body {
     0 12px 30px var(--shadow-3);
 }
 
+.card-amenity {
+  max-width: 300px;
+  margin: auto;
+  background-color: var(--primary-color);
+  color: var(--secondary-background-color);
+  box-shadow:
+    0 1px 1px var(--shadow-1),
+    0 8px 15px var(--shadow-3);
+}
+
 .image-board {
   width: 15rem;
   margin: auto;
@@ -136,6 +135,26 @@ body {
   font-weight: 800;
 }
 
-.text-board-position {
+.text-color {
+  color: var(--text-color);
+}
+
+.text-secondary-color {
+  color: var(--text-secondary-color);
+}
+
+.text-tertiary-color {
+  color: var(--text-tertiary-color);
+}
+
+.background-color {
+  color: var(--text-color);
+}
+
+.secondary-background-color {
   color: var(--secondary-background-color);
+}
+
+.tertiary-background-color {
+  color: var(--tertiary-background-color);
 }
