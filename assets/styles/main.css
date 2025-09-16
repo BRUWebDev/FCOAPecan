@@ -2,6 +2,8 @@
   --primary-color: #7f9183;
   --secondary-color: #a3a395;
   --text-color: #586f6b;
+  --text-secondary-color: #fdf9ee;
+  --text-tertiary-color: #f3e6d0;
   --heading-text-color: #bf9978;
   --accent-color: #e3b341;
   --secondary-accent-color: #a14e2e;
@@ -146,6 +148,14 @@ body {
   color: var(--secondary-background-color);
 }
 
-.text-amenities-name {
+.text-background-color {
+  color: var(--text-color);
+}
+
+.text-secondary-background-color {
   color: var(--secondary-background-color);
+}
+
+.text-tertiary-background-color {
+  color: var(--tertiary-background-color);
 }
