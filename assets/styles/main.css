@@ -122,8 +122,7 @@ body {
   color: var(--secondary-background-color);
   box-shadow:
     0 1px 1px var(--shadow-1),
-    0 8px 20px var(--shadow-2),
-    0 12px 30px var(--shadow-3);
+    0 8px 15px var(--shadow-3);
 }
 
 .image-board {
