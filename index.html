@@ -20,6 +20,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
       rel="stylesheet"
     />
+    <script src="assets/javascript/main.js"></script>
     <link rel="stylesheet" href="./assets/styles/main.css" />
   </head>
 
@@ -33,6 +34,15 @@
           <div class="m-3">
             <a class="btn btn-secondary m-2" href="#about">Learn More</a>
             <a class="btn btn-primary m-2">Resident Portal</a>
+          </div>
+          <div class="pt-3 px-0 mx-0">
+            <div onclick="scrollDown()">
+              <i
+                id="arrowDown"
+                class="arrow-down fa-solid fa-angle-down py-0 my-0 "
+                aria-hidden="true"
+              ></i>
+            </div>
           </div>
         </div>
       </section>
@@ -292,5 +302,15 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+    <div onclick="scrollToTop()">
+      <i
+        id="arrowTop"
+        class="arrow-top fa-solid fa-angle-up py-0 my-0"
+        aria-hidden="true"
+      ></i>
+    </div>
+    <script>
+      scrollFunction();
+    </script>
   </body>
 </html>
