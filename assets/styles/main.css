@@ -86,10 +86,6 @@ body {
   justify-content: center;
 }
 
-.text-hero {
-  color: var(--secondary-background-color);
-}
-
 .alert.alert-accent {
   background-color: var(--accent-color);
   color: var(--text-color);
@@ -138,10 +134,6 @@ body {
 .text-board-name {
   color: var(--tertiary-background-color);
   font-weight: 800;
-}
-
-.text-board-position {
-  color: var(--secondary-background-color);
 }
 
 .text-color {
