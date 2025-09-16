@@ -86,10 +86,6 @@ body {
   justify-content: center;
 }
 
-.text-hero {
-  color: var(--secondary-background-color);
-}
-
 .alert.alert-accent {
   background-color: var(--accent-color);
   color: var(--text-color);
@@ -126,8 +122,7 @@ body {
   color: var(--secondary-background-color);
   box-shadow:
     0 1px 1px var(--shadow-1),
-    0 8px 20px var(--shadow-2),
-    0 12px 30px var(--shadow-3);
+    0 8px 15px var(--shadow-3);
 }
 
 .image-board {
@@ -138,10 +133,6 @@ body {
 .text-board-name {
   color: var(--tertiary-background-color);
   font-weight: 800;
-}
-
-.text-board-position {
-  color: var(--secondary-background-color);
 }
 
 .text-color {
