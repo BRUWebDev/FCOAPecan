@@ -200,7 +200,10 @@ body {
 @media (max-width: 991.99px) {
   .side-toolbar {
     position: fixed;
-    left: 0; right: 0; bottom: 0; top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: auto;
     transform: none;
     display: block;
     background: rgba(20, 73, 52, 0.95);
@@ -244,7 +247,7 @@ body {
   .side-toolbar {
     position: fixed;
     top: 50%;
-    left: .5%;
+    left: 0.5%;
     transform: translateY(-50%);
     width: var(--rail-width);
     background: transparent;
@@ -252,8 +255,12 @@ body {
     padding: 0;
     display: block;
   }
-  .side-toolbar ul { display: block; }
-  .side-toolbar li { margin: 24px 0; }
+  .side-toolbar ul {
+    display: block;
+  }
+  .side-toolbar li {
+    margin: 24px 0;
+  }
   .side-toolbar a {
     width: 100%;
     position: relative;
@@ -263,7 +270,10 @@ body {
     justify-content: center;
     gap: 6px;
   }
-  .side-toolbar i { display: block; margin: 0 auto; }
+  .side-toolbar i {
+    display: block;
+    margin: 0 auto;
+  }
   .side-toolbar .label {
     position: static;
     transform: none;
