@@ -68,7 +68,7 @@ body {
 
 .link-icon {
   text-decoration: none;
-  color: var(--);
+  color: var(--background-tertiary-color);
 }
 
 .container-hero {
