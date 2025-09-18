@@ -148,13 +148,13 @@ body {
 }
 
 .background-color {
-  color: var(--text-color);
+  background-color: var(--background-color);
 }
 
 .secondary-background-color {
-  color: var(--secondary-background-color);
+  background-color: var(--secondary-background-color);
 }
 
 .tertiary-background-color {
-  color: var(--tertiary-background-color);
+  background-color: var(--tertiary-background-color);
 }
