@@ -90,7 +90,27 @@ body {
   background-color: var(--background-secondary-color);
 }
 
-.text-heading {
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: calc(100vw * 0.2333 + 32px);
+  z-index: -1;
+}
+
+.background-image {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  height: 100%;
+  width: 100%;
+  background-image: url("../media/FCOA_Logo.jpg");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+  .text-heading {
   font-family: Inter, sans-serif !important;
   color: var(--heading-text-color);
 }
@@ -101,13 +121,7 @@ body {
 }
 
 .container-hero {
-  height: 100vh;
-  background-color: rgb(0 0 0 / 50%);
-  background-image: url("../media/fairway_condiminiums_2.jpg");
-  background-blend-mode: overlay;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  margin-top: calc(100vw * 0.2333 + 32px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -117,6 +131,7 @@ body {
 .alert.alert-accent {
   background-color: var(--accent-color);
   color: var(--text-color);
+  margin-top: 3rem;
 }
 
 .border-right-accent {
