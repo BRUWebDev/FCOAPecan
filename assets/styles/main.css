@@ -9,6 +9,7 @@
   --secondary-accent-color: #a14e2e;
   --background-color: #144934;
   --background-secondary-color: #fdf9ee;
+  --background-secondary-color-rgb: 253, 249, 238;
   --background-tertiary-color: #f3e6d0;
   --shadow-1: rgb(0 0 0 / 10%);
   --shadow-2: rgb(0 0 0 / 20%);
@@ -50,6 +51,34 @@ body {
 .btn.btn-secondary:hover {
   background-color: var(--background-secondary-color);
   color: var(--heading-text-color);
+}
+
+.btn.btn-event {
+  background-color: var(--primary-color);
+  color: var(--background-tertiary-color);
+}
+
+.btn.btn-event:hover {
+  background-color: var(--background-secondary-color);
+  color: var(--primary-color);
+}
+
+.btn.btn-community {
+  background-color: rgba(var(--background-secondary-color-rgb), 0.3);
+  border: solid 2px var(--background-secondary-color);
+  color: var(--background-secondary-color);
+  transition: all;
+  transition-duration: 200ms;
+}
+
+.btn.btn-community:hover {
+  transform: translate(0, -2px);
+}
+
+.container-community-button {
+  padding: 12px;
+  background-color: var(--primary-color);
+  color: var(--background-secondary-color);
 }
 
 .default.container {
@@ -124,6 +153,15 @@ body {
     0 8px 15px var(--shadow-3);
 }
 
+.card-event {
+  background-color: var(--background-tertiary-color);
+  border: none;
+  border-radius: 5px;
+  box-shadow:
+    0 1px 1px var(--shadow-1),
+    0 2px 8px var(--shadow-3);
+}
+
 .image-board {
   width: 90%;
   margin: auto;
@@ -136,6 +174,10 @@ body {
 
 .text-color {
   color: var(--text-color);
+}
+
+.text-primary-color {
+  color: var(--primary-color);
 }
 
 .text-secondary-color {

@@ -4,6 +4,7 @@ import {
   collection,
   getDocs,
   getFirestore,
+  Timestamp
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -28,6 +29,21 @@ const analytics = getAnalytics(app);
 
 // Initialize Firestore
 const db = getFirestore(app);
+
+const months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 
 function populateAlert(alert) {
   if (alert.active) {
@@ -72,3 +88,47 @@ async function loadBoard() {
 }
 
 loadBoard();
+
+function populateEvent(event) {
+  const eventContainer = document.getElementById("event-list");
+  const eventHtml = document.createElement("li");
+  eventHtml.classList.add("list-group-item", "card-event", "mb-3");
+
+  let linkHtml = "";
+  if (event.link != "") {
+    linkHtml = `
+      <div class="col-2 d-flex align-items-center justify-content-center">
+        <a class="btn btn-event" href="${event.link}" target="_blank">Learn More</a>
+      </div>`;
+  }
+
+  eventHtml.innerHTML = `
+    <div class="row text-color">
+      <div class="col-3 d-flex align-items-center px-4">
+        <div class="d-block">
+          <h2 class="">${event.date.getDate()}</h2>
+          <h5 class="text-heading">${months[event.date.getMonth()]} ${event.date.getFullYear()}</h5>
+        </div>
+      </div>
+      <div class="col-7 d-flex align-items-center">
+        <div class="d-block py-3">
+          <h4 class="text-heading">${event.name}</h4>
+          <p>${event.description}</p>
+        </div>
+      </div>
+      ${linkHtml}
+    </div>`;
+  eventContainer.appendChild(eventHtml);
+}
+
+async function loadEvents() {
+  const querySnapshot = await getDocs(collection(db, "event"));
+  querySnapshot.forEach((doc) => {
+    let event = doc.data();
+    const timestamp = new Timestamp(event.date.seconds, event.date.nanoseconds);
+    event.date = timestamp.toDate();
+    populateEvent(event);
+  });
+}
+
+loadEvents();
