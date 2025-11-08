@@ -12,6 +12,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
+    <link ref="stylesheet" href="./assets/styles/admin.css" />
   </head>
   <body>
     <div class="container">
@@ -37,6 +38,17 @@
               class="form-control"
             ></textarea>
           </div>
+
+          <h3 class="my-5">Events</h3>
+          <div class="text-end">
+            <button class="btn btn-primary float-right">Add Event</button>
+          </div>
+          <div class="mb-3">
+            <ul id="event-list" class="list-group list-unstyled">
+              <!-- Event items will be dynamically added here -->
+            </ul>
+          </div>
+
           <h3 class="my-5">Board</h3>
           <div class="mb-3">
             <label for="board-president-name" class="form-label"

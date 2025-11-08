@@ -3,6 +3,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebas
 import {
   collection,
   getDocs,
+  query,
+  orderBy,
   getFirestore,
   Timestamp
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
@@ -97,21 +99,21 @@ function populateEvent(event) {
   let linkHtml = "";
   if (event.link != "") {
     linkHtml = `
-      <div class="col-2 d-flex align-items-center justify-content-center">
-        <a class="btn btn-event" href="${event.link}" target="_blank">Learn More</a>
+      <div class="col-12 col-md-2 d-flex align-items-center justify-content-center">
+        <a class="btn btn-event w-100" href="${event.link}" target="_blank">Learn More</a>
       </div>`;
   }
 
   eventHtml.innerHTML = `
     <div class="row text-color">
-      <div class="col-3 d-flex align-items-center px-4">
+      <div class="col-2 mt-1">
         <div class="d-block">
           <h2 class="">${event.date.getDate()}</h2>
           <h5 class="text-heading">${months[event.date.getMonth()]} ${event.date.getFullYear()}</h5>
         </div>
       </div>
-      <div class="col-7 d-flex align-items-center">
-        <div class="d-block py-3">
+      <div class="col-10 col-md-8 mt-1">
+        <div class="d-block">
           <h4 class="text-heading">${event.name}</h4>
           <p>${event.description}</p>
         </div>
@@ -122,7 +124,9 @@ function populateEvent(event) {
 }
 
 async function loadEvents() {
-  const querySnapshot = await getDocs(collection(db, "event"));
+  const eventCollectionRef = collection(db, "event");
+  const q = query(eventCollectionRef, orderBy("date"));
+  const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
     let event = doc.data();
     const timestamp = new Timestamp(event.date.seconds, event.date.nanoseconds);
