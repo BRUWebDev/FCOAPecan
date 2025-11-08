@@ -61,29 +61,19 @@
       </ul>
     </nav>
 
-    <div class="default container">
+    <div class="background">
+        <div class="background-image container"></div>
+      </div>
+    </div>
+
+    <div class="default container rounded">
       <section id="hero">
-        <div class="container-hero">
-          <h1 class="text-secondary-color" style="margin-top: 20%">
-            Fairway Condiminium
-          </h1>
-          <h1 class="text-secondary-color">Owner's Association</h1>
-          <div class="m-3">
-            <a class="btn btn-secondary m-2" href="#about">Learn More</a>
-            <a
-              class="btn btn-primary m-2"
-              href="https://account.appfolio.com/realms/foliospace/protocol/openid-connect/auth?activation_state&client_id=client-79a9ef9a4685ad3233dcd4c51e6c4048def43614&portfolio_uuid&redirect_uri=https%3A%2F%2Ftheagencyrealestategrp.appfolio.com%2Fconnect%2Fusers%2Foauth%2Fcallback&response_type=code&scope=openid+offline_access&session_timed_out=false&state"
-              >Resident Portal</a
-            >
-          </div>
+        <div class="container-hero w-100">
         </div>
       </section>
 
       <section id="about">
-        <div class="alert alert-accent m-4" role="alert">
-          <h4 class="alert-heading">Alert Heading</h4>
-          <p>This is a test alert.</p>
-        </div>
+        <div id="alert-container"></div>
         <div class="container-about px-5 pb-4">
           <h1 class="text-heading py-5">About</h1>
           <p>
@@ -207,8 +197,62 @@
         </div>
       </section>
 
-      <section id="more-info">
+      <section id="community">
         <div class="px-5 pb-5">
+          <h1 class="text-heading pt-5">Community</h1>
+
+          <div class="d-flex align-items-center justify-content-center">
+            <div class="container-community-button rounded-pill">
+              <div class="row">
+                <div
+                  class="col-md-4 d-flex align-items-center justify-content-center"
+                >
+                  <a
+                    href="https://www.ppoaweb.com/"
+                    target="_blank"
+                    class="btn btn-community rounded-pill text-nowrap m-2"
+                  >
+                    Pecan Plantation &nbsp;
+                    <span><i class="fa-solid fa-arrow-right"></i></span>
+                  </a>
+                </div>
+                <div
+                  class="col-md-4 d-flex align-items-center justify-content-center"
+                >
+                  <a
+                    href="https://www.visitgranbury.com/things-to-do/"
+                    target="_blank"
+                    class="btn btn-community rounded-pill m-2"
+                  >
+                    Things To Do In Granbury &nbsp;
+                    <span><i class="fa-solid fa-arrow-right"></i></span>
+                  </a>
+                </div>
+                <div
+                  class="col-md-4 d-flex align-items-center justify-content-center"
+                >
+                  <a
+                    href="https://account.appfolio.com/realms/foliospace/protocol/openid-connect/auth?activation_state&client_id=client-79a9ef9a4685ad3233dcd4c51e6c4048def43614&portfolio_uuid&redirect_uri=https%3A%2F%2Ftheagencyrealestategrp.appfolio.com%2Fconnect%2Fusers%2Foauth%2Fcallback&response_type=code&scope=openid+offline_access&session_timed_out=false&state"
+                    target="_blank"
+                    class="btn btn-community rounded-pill text-nowrap m-2"
+                  >
+                    Owner Portal &nbsp;
+                    <span><i class="fa-solid fa-arrow-right"></i></span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cotainer-events">
+            <h4 class="m-3">Events</h4>
+            <ul id="event-list" class="list-group"></ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="more-info">
+        <div class="background-tertiary-color px-5 pb-5">
           <h1 class="text-heading py-5">More Information</h1>
           <div class="row text-center">
             <div class="col-sm-6 mb-3">
@@ -254,7 +298,7 @@
       </section>
 
       <section id="board">
-        <div class="background-tertiary-color px-5 pb-5">
+        <div class="px-5 pb-5">
           <h1 class="text-heading py-5">Board Members</h1>
           <div class="row text-center">
             <div class="col-sm-4 mb-3">
@@ -266,13 +310,11 @@
                 />
                 <div class="card-body">
                   <div class="card-title">
-                    <h3 class="text-board-name">Dan Pepon</h3>
+                    <h3 id="board-president-name" class="text-board-name"></h3>
                   </div>
                   <div class="card-text">
                     <h5 class="text-secondary-color">President</h5>
                   </div>
-                  <i class="fa-solid fa-phone p-2"></i>
-                  <i class="fa-solid fa-envelope p-2"></i>
                 </div>
               </div>
             </div>
@@ -285,13 +327,11 @@
                 />
                 <div class="card-body">
                   <div class="card-title">
-                    <h3 class="text-board-name">Tina Moore</h3>
+                    <h3 id="board-treasurer-name" class="text-board-name"></h3>
                   </div>
                   <div class="card-text">
                     <h5 class="text-secondary-color">Treasurer</h5>
                   </div>
-                  <i class="fa-solid fa-phone p-2"></i>
-                  <i class="fa-solid fa-envelope p-2"></i>
                 </div>
               </div>
             </div>
@@ -304,13 +344,11 @@
                 />
                 <div class="card-body">
                   <div class="card-title">
-                    <h3 class="text-board-name">James Barker</h3>
+                    <h3 id="board-secretary-name" class="text-board-name"></h3>
                   </div>
                   <div class="card-text">
                     <h5 class="text-secondary-color">Secretary</h5>
                   </div>
-                  <i class="fa-solid fa-phone p-2"></i>
-                  <i class="fa-solid fa-envelope p-2"></i>
                 </div>
               </div>
             </div>
@@ -336,5 +374,6 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+    <script type="module" src="./assets/js/main.js"></script>
   </body>
 </html>
