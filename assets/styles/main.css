@@ -90,27 +90,7 @@ body {
   background-color: var(--background-secondary-color);
 }
 
-.background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: calc(100vw * 0.2333 + 32px);
-  z-index: -1;
-}
-
-.background-image {
-  padding-top: 16px;
-  padding-bottom: 16px;
-  height: 100%;
-  width: 100%;
-  background-image: url("../media/FCOA_Logo.jpg");
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-  .text-heading {
+.text-heading {
   font-family: Inter, sans-serif !important;
   color: var(--heading-text-color);
 }
@@ -121,9 +101,8 @@ body {
 }
 
 .container-hero {
-  margin-top: calc(100vw * 0.2333 + 32px);
+  background-color: var(--background-color);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: flex-start;
 }
