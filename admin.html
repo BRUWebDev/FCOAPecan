@@ -12,26 +12,54 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
-    <link ref="stylesheet" href="./assets/styles/admin.css" />
+    <link rel="stylesheet" href="./assets/styles/main.css" />
+    <link rel="stylesheet" href="./assets/styles/admin.css" />
   </head>
   <body>
     <div class="container">
-      <h1 class="my-5">Admin Dashboard</h1>
-      <div class="bg-light p-4">
+      <h1 class="text-heading my-5">Admin Dashboard</h1>
+      <div class="background-secondary-color p-4 rounded">
         <form>
-          <h3 class="my-3">Alert</h3>
-          <div class="form-check form-switch form-check-reverse">
-            <input class="form-check-input" type="checkbox" id="alert-switch" />
-            <label class="form-check-label" for="switchCheckReverse"
-              >Active</label
+          <div class="row mt-3">
+            <div class="col-3 col-sm-2 col-xl-1">
+              <h3 class="text-heading">Alert</h3>
+            </div>
+            <div class="col-1 d-flex align-items-center">
+              <div class="form-check form-switch form-check-reverse">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="alert-switch"
+                />
+                <label
+                  class="form-check-label text-form-heading"
+                  for="switchCheckReverse"
+                  >Active</label
+                >
+              </div>
+            </div>
+            <div class="col text-end">
+              <button type="submit" id="board-save" class="btn btn-primary">
+                <span
+                  id="alert-save-spinner"
+                  class="spinner-border spinner-border-sm visually-hidden"
+                  aria-hidden="true"
+                ></span>
+                <span id="board-save-text">Save Board</span>
+              </button>
+            </div>
+          </div>
+          <hr />
+          <div class="mb-3">
+            <label for="alert-title" class="form-label text-form-heading"
+              >Title</label
             >
+            <input type="text" id="alert-title" class="form-control test" />
           </div>
           <div class="mb-3">
-            <label for="alert-title" class="form-label">Title</label>
-            <input type="text" id="alert-title" class="form-control" />
-          </div>
-          <div class="mb-3">
-            <label for="alert-message" class="form-label">Message</label>
+            <label for="alert-message" class="form-label text-form-heading"
+              >Message</label
+            >
             <textarea
               type="text"
               id="alert-message"
@@ -39,44 +67,60 @@
             ></textarea>
           </div>
 
-          <h3 class="my-5">Events</h3>
-          <div class="text-end">
-            <button class="btn btn-primary float-right">Add Event</button>
+          <div class="row mt-5">
+            <div class="col">
+              <h3 class="text-heading mt-5 d-inline">Events</h3>
+            </div>
+            <div class="col text-end">
+              <button class="btn btn-primary">Add Event</button>
+            </div>
           </div>
+          <hr />
           <div class="mb-3">
             <ul id="event-list" class="list-group list-unstyled">
               <!-- Event items will be dynamically added here -->
             </ul>
           </div>
 
-          <h3 class="my-5">Board</h3>
+          <div class="row mt-5">
+            <div class="col">
+              <h3 class="text-heading">Board</h3>
+            </div>
+            <div class="col text-end">
+              <button type="submit" id="board-save" class="btn btn-primary">
+                <span
+                  id="alert-save-spinner"
+                  class="spinner-border spinner-border-sm visually-hidden"
+                  aria-hidden="true"
+                ></span>
+                <span id="board-save-text">Save Board</span>
+              </button>
+            </div>
+          </div>
+          <hr />
           <div class="mb-3">
-            <label for="board-president-name" class="form-label"
+            <label
+              for="board-president-name"
+              class="form-label text-form-heading"
               >President</label
             >
             <input type="text" id="board-president-name" class="form-control" />
           </div>
           <div class="mb-3">
-            <label for="board-treasurer-name" class="form-label"
+            <label
+              for="board-treasurer-name"
+              class="form-label text-form-heading"
               >Treasurer</label
             >
             <input type="text" id="board-treasurer-name" class="form-control" />
           </div>
           <div class="mb-3">
-            <label for="board-secretary-name" class="form-label"
+            <label
+              for="board-secretary-name"
+              class="form-label text-form-heading"
               >Secretary</label
             >
             <input type="text" id="board-secretary-name" class="form-control" />
-          </div>
-          <div class="d-flex justify-content-end">
-            <button type="submit" id="alert-save" class="btn btn-primary">
-              <span
-                id="alert-save-spinner"
-                class="spinner-border spinner-border-sm visually-hidden"
-                aria-hidden="true"
-              ></span>
-              <span id="alert-save-text">Save</span>
-            </button>
           </div>
         </form>
       </div>

@@ -97,17 +97,17 @@ async function updateAlert() {
 function populateEvent(event) {
   console.log(event);
   const eventHTML = document.createElement("li");
-  eventHTML.classList.add("list-item", "event");
+  eventHTML.classList.add("list-group-item", "card-event", "mb-3");
   eventHTML.innerHTML = `
     <div class="row text-color">
-      <div class="col-3 d-flex align-items-center px-4">
+      <div class="col-2 mt-1">
         <div class="d-block">
-          <h2 class="">${event.date.getDate()}</h2>
+          <h2>${event.date.getDate()}</h2>
           <h5 class="text-heading">${months[event.date.getMonth()]} ${event.date.getFullYear()}</h5>
         </div>
       </div>
-      <div class="col-7 d-flex align-items-center">
-        <div class="d-block py-3">
+      <div class="col-10 col-md-8 mt-1">
+        <div class="d-block">
           <h4 class="text-heading">${event.name}</h4>
           <p>${event.description}</p>
           <p><b>Link:</b> <a href="${event.link}" target="_blank">${event.link}</a></p>

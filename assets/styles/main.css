@@ -6,11 +6,13 @@
   --text-tertiary-color: #f3e6d0;
   --heading-text-color: #bf9978;
   --accent-color: #e3b341;
+  --accent-color-rgb: 227, 179, 65;
   --secondary-accent-color: #a14e2e;
   --background-color: #144934;
   --background-secondary-color: #fdf9ee;
   --background-secondary-color-rgb: 253, 249, 238;
   --background-tertiary-color: #f3e6d0;
+  --background-tertiary-color-rgb: 243, 230, 208;
   --shadow-1: rgb(0 0 0 / 10%);
   --shadow-2: rgb(0 0 0 / 20%);
   --shadow-3: rgb(0 0 0 / 30%);
