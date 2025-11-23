@@ -54,7 +54,7 @@
             <label for="alert-title" class="form-label text-form-heading"
               >Title</label
             >
-            <input type="text" id="alert-title" class="form-control test" />
+            <input type="text" id="alert-title" class="form-control" />
           </div>
           <div class="mb-3">
             <label for="alert-message" class="form-label text-form-heading"
@@ -72,7 +72,14 @@
               <h3 class="text-heading mt-5 d-inline">Events</h3>
             </div>
             <div class="col text-end">
-              <button class="btn btn-primary">Add Event</button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#eventModal"
+              >
+                Add Event
+              </button>
             </div>
           </div>
           <hr />
@@ -137,6 +144,80 @@
         </a>
       </div>
     </footer>
+
+    <div
+      class="modal fade"
+      id="eventModal"
+      tabindex="-1"
+      aria-labelledby="eventModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5 text-heading" id="eventModalLabel">
+              Add Event
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="event-name" class="form-label text-form-heading"
+                  >Event</label
+                >
+                <input type="text" id="event-name" class="form-control" />
+              </div>
+              <div class="mb-3">
+                <label
+                  for="event-description"
+                  class="form-label text-form-heading"
+                  >Description</label
+                >
+                <textarea
+                  id="event-description"
+                  class="form-control"
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="event-link" class="form-label text-form-heading"
+                  >Link</label
+                >
+                <input type="text" id="event-link" class="form-control" />
+              </div>
+              <div class="mb-3">
+                <label for="event-date" class="form-label text-form-heading"
+                  >Date</label
+                >
+                <input type="date" id="event-date" class="form-control" />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="submit" id="event-save" class="btn btn-primary">
+              <span
+                id="event-save-spinner"
+                class="spinner-border spinner-border-sm visually-hidden"
+                aria-hidden="true"
+              ></span>
+              <span id="event-save-text">Save Event</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="toast-container position-fixed top-0 end-0 p-3">
       <div

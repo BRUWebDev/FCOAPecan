@@ -4,6 +4,7 @@ import {
   collection,
   doc,
   getDocs,
+  addDoc,
   getFirestore,
   updateDoc,
   writeBatch,
@@ -41,8 +42,15 @@ const alertSaveSpinner = document.getElementById("alert-save-spinner");
 const boardSave = document.getElementById("board-save");
 const boardSaveText = document.getElementById("board-save-text");
 const boardSaveSpinner = document.getElementById("board-save-spinner");
-const toast = document.getElementById("toast");
+const eventSave = document.getElementById("event-save");
+const eventSaveText = document.getElementById("event-save-text");
+const eventSaveSpinner = document.getElementById("event-save-spinner");
+const eventName = document.getElementById("event-name");
+const eventDescription = document.getElementById("event-description");
+const eventLink = document.getElementById("event-link");
+const eventDate = document.getElementById("event-date");
 const eventList = document.getElementById("event-list");
+const toast = document.getElementById("toast");
 
 const months = [
   "Jan",
@@ -110,8 +118,8 @@ function populateEvent(event) {
     <div class="row text-color">
       <div class="col-2 mt-1">
         <div class="d-block">
-          <h2>${event.date.getDate()}</h2>
-          <h5 class="text-heading">${months[event.date.getMonth()]} ${event.date.getFullYear()}</h5>
+          <h2>${event.date.getUTCDate()}</h2>
+          <h5 class="text-heading">${months[event.date.getUTCMonth()]} ${event.date.getUTCFullYear()}</h5>
         </div>
       </div>
       <div class="col-10 col-md-8 mt-1">
@@ -125,12 +133,24 @@ function populateEvent(event) {
   eventList.appendChild(eventHTML);
 }
 
+async function createEvent() {
+  const event = {
+    name: eventName.value,
+    description: eventDescription.value,
+    link: eventLink.value,
+    date: Timestamp.fromDate(eventDate.valueAsDate)
+  }
+  console.log(event);
+  await addDoc(collection(db, "event"), event);
+}
+
 async function loadEvents() {
   const querySnapshot = await getDocs(collection(db, "event"));
   querySnapshot.forEach((doc) => {
     let event = doc.data();
     const timestamp = new Timestamp(event.date.seconds, event.date.nanoseconds);
     event.date = timestamp.toDate();
+    console.log(event.date);
     populateEvent(event);
   });
 }
@@ -204,6 +224,14 @@ boardSave.addEventListener("click", async function (event) {
   updateBoard();
   setButtonStatusDone(boardSave, boardSaveSpinner, boardSaveText, "Save Board");
   createToast("Updated board successfully.", true);
+})
+
+eventSave.addEventListener("click", async function (event) {
+  event.preventDefault();
+  setButtonStatusSaving(eventSave, eventSaveSpinner, eventSaveText, "Saving Event...");
+  createEvent();
+  setButtonStatusDone(eventSave, eventSaveSpinner, eventSaveText, "Save Event");
+  createToast("Created event successfully.", true);
 })
 
 const auth = getAuth();
