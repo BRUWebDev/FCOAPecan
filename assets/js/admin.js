@@ -7,7 +7,9 @@ import {
   addDoc,
   getFirestore,
   updateDoc,
+  query,
   writeBatch,
+  orderBy
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 import { GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
@@ -145,7 +147,9 @@ async function createEvent() {
 }
 
 async function loadEvents() {
-  const querySnapshot = await getDocs(collection(db, "event"));
+  const eventCollectionRef = collection(db, "event");
+  const q = query(eventCollectionRef, orderBy("date"));
+  const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
     let event = doc.data();
     const timestamp = new Timestamp(event.date.seconds, event.date.nanoseconds);
