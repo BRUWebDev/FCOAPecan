@@ -19,12 +19,6 @@ const firebaseConfig = {
   measurementId: "G-QTFT5ZHR4Z",
 };
 
-const alertHtml = `
-        <div class="alert alert-accent m-4" role="alert">
-          <h4 id="alert-title" class="alert-heading">Alert Heading</h4>
-          <p id="alert-message">This is a test alert.</p>
-        </div>`;
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
@@ -51,7 +45,7 @@ function populateAlert(alert) {
   if (alert.active) {
     const alertContainer = document.getElementById("alert-container");
     alertContainer.innerHTML = `
-        <div class="alert alert-accent m-4" role="alert">
+        <div class="alert alert-accent mx-4" role="alert">
           <h4 id="alert-title" class="alert-heading">${alert.title}</h4>
           <p id="alert-message">${alert.message}</p>
         </div>`;

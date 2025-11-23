@@ -112,7 +112,6 @@ body {
 .alert.alert-accent {
   background-color: var(--accent-color);
   color: var(--text-color);
-  margin-top: 3rem;
 }
 
 .border-right-accent {

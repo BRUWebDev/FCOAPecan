@@ -38,6 +38,9 @@ let secretaryName = document.getElementById("board-secretary-name");
 const alertSave = document.getElementById("alert-save");
 const alertSaveText = document.getElementById("alert-save-text");
 const alertSaveSpinner = document.getElementById("alert-save-spinner");
+const boardSave = document.getElementById("board-save");
+const boardSaveText = document.getElementById("board-save-text");
+const boardSaveSpinner = document.getElementById("board-save-spinner");
 const toast = document.getElementById("toast");
 const eventList = document.getElementById("event-list");
 
@@ -66,16 +69,16 @@ function setAlertRef(alertId) {
   alertRef = doc(db, "alert", alertId);
 }
 
-function setButtonStatusSaving() {
-  alertSave.disabled = true;
-  alertSaveSpinner.classList.remove("visually-hidden");
-  alertSaveText.textContent = "Saving...";
+function setButtonStatusSaving(button, spinner, textElement, textContent) {
+  button.disabled = true;
+  spinner.classList.remove("visually-hidden");
+  textElement.textContent = textContent;
 }
 
-function setButtonStatusDone() {
-  alertSave.disabled = false;
-  alertSaveSpinner.classList.add("visually-hidden");
-  alertSaveText.textContent = "Save";
+function setButtonStatusDone(button, spinner, textElement, textContent) {
+  button.disabled = false;
+  spinner.classList.add("visually-hidden");
+  textElement.textContent = textContent;
 }
 
 async function loadAlert() {
@@ -88,9 +91,14 @@ loadAlert();
 
 async function updateAlert() {
   await updateDoc(alertRef, {
-    active: alertSwitch.checked,
     title: alertTitle.value,
     message: alertMessage.value,
+  });
+}
+
+async function updateAlertStatus() {
+  await updateDoc(alertRef, {
+    active: alertSwitch.checked
   });
 }
 
@@ -163,15 +171,40 @@ async function updateBoard() {
   await batch.commit();
 }
 
-alertSave.addEventListener("click", async function (event) {
-  event.preventDefault();
-  setButtonStatusSaving();
-  updateAlert();
-  updateBoard();
-  setButtonStatusDone();
+function createToast(message, success) {
+  if (success) {
+    toast.classList.remove("text-bg-danger");
+    toast.classList.add("text-bg-success");
+  } else {
+    toast.classList.remove("text-bg-success");
+    toast.classList.add("text-bg-danger");
+  }
+  const toastMessage = document.getElementById("toast-message");
+  toastMessage.innerHTML = message;
   const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast);
   toastBootstrap.show();
-});
+}
+
+alertSwitch.addEventListener("change", async function(_) {
+  updateAlertStatus();
+  createToast("Updated alert status successfully.", true);
+})
+
+alertSave.addEventListener("click", async function (event) {
+  event.preventDefault();
+  setButtonStatusSaving(alertSave, alertSaveSpinner, alertSaveText, "Saving Alert...");
+  updateAlert();
+  setButtonStatusDone(alertSave, alertSaveSpinner, alertSaveText, "Save Alert");
+  createToast("Updated alert successfully.", true);
+})
+
+boardSave.addEventListener("click", async function (event) {
+  event.preventDefault();
+  setButtonStatusSaving(boardSave, boardSaveSpinner, boardSaveText, "Saving Board...");
+  updateBoard();
+  setButtonStatusDone(boardSave, boardSaveSpinner, boardSaveText, "Save Board");
+  createToast("Updated board successfully.", true);
+})
 
 const auth = getAuth();
 signInWithPopup(auth, provider)

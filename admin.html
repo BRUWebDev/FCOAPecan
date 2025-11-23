@@ -17,7 +17,7 @@
   </head>
   <body>
     <div class="container">
-      <h1 class="text-heading my-5">Admin Dashboard</h1>
+      <h1 class="text-heading my-5">FCOA Admin Dashboard</h1>
       <div class="background-secondary-color p-4 rounded">
         <form>
           <div class="row mt-3">
@@ -39,13 +39,13 @@
               </div>
             </div>
             <div class="col text-end">
-              <button type="submit" id="board-save" class="btn btn-primary">
+              <button type="submit" id="alert-save" class="btn btn-primary">
                 <span
                   id="alert-save-spinner"
                   class="spinner-border spinner-border-sm visually-hidden"
                   aria-hidden="true"
                 ></span>
-                <span id="board-save-text">Save Board</span>
+                <span id="alert-save-text">Save Alert</span>
               </button>
             </div>
           </div>
@@ -89,7 +89,7 @@
             <div class="col text-end">
               <button type="submit" id="board-save" class="btn btn-primary">
                 <span
-                  id="alert-save-spinner"
+                  id="board-save-spinner"
                   class="spinner-border spinner-border-sm visually-hidden"
                   aria-hidden="true"
                 ></span>
@@ -126,16 +126,28 @@
       </div>
     </div>
 
+    <footer>
+      <div class="text-center m-5">
+        <a href="https://bruwebdev.com" target="_blank">
+          <img
+            src="./assets/media/logo_white.svg"
+            alt="BRU Web Development Logo"
+            height="60rem"
+          />
+        </a>
+      </div>
+    </footer>
+
     <div class="toast-container position-fixed top-0 end-0 p-3">
       <div
         id="toast"
-        class="toast align-items-center text-bg-success border-0"
+        class="toast align-items-center text-bg-danger border-0"
         role="alert"
         aria-live="assertive"
         aria-atomic="true"
       >
         <div class="d-flex">
-          <div class="toast-body">Successfully saved alert.</div>
+          <div id="toast-message" class="toast-body"></div>
           <button
             type="button"
             class="btn-close btn-close-white me-2 m-auto"
