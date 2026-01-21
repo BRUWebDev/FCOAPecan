@@ -1,0 +1,22 @@
+name: Test security rules
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run tests
+        env:
+            FIREBASE_DEBUG: "true"
+        run: npm run test:rules:emulator
