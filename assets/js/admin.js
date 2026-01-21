@@ -61,6 +61,9 @@ const eventDescription = document.getElementById("event-description");
 const eventLink = document.getElementById("event-link");
 const eventDate = document.getElementById("event-date");
 const eventList = document.getElementById("event-list");
+const eventModalLabel = document.getElementById("eventModalLabel");
+const eventModalElement = document.getElementById("eventModal");
+const addEventButton = document.querySelector('[data-bs-target="#eventModal"]');
 const toast = document.getElementById("toast");
 const adminDashboard = document.getElementById("admin-dashboard");
 const adminLogin = document.getElementById("admin-login");
@@ -72,6 +75,8 @@ let isAdmin = false;
 let authPromptInFlight = false;
 let adminDataLoaded = false;
 let adminDataLoading = false;
+let editingEventId = null;
+let eventModalInstance = null;
 
 const months = [
   "Jan",
@@ -170,7 +175,7 @@ async function createEvent() {
   await addDoc(collection(db, "event"), event);
 }
 
-async function deleteEvent(eventId) {
+async function deleteEventById(eventId) {
   await deleteDoc(doc(db, "event", eventId));
 }
 
@@ -185,6 +190,76 @@ async function loadEvents() {
     event.date = timestamp.toDate();
     populateEvent({ id: doc.id, ...event });
   });
+}
+
+function setEventFormEnabled(enabled) {
+  eventName.disabled = !enabled;
+  eventDescription.disabled = !enabled;
+  eventLink.disabled = !enabled;
+  eventDate.disabled = !enabled;
+  eventSave.disabled = !enabled;
+}
+
+function openEventModalForCreate() {
+  editingEventId = null;
+  if (eventModalLabel) {
+    eventModalLabel.textContent = "Add Event";
+  }
+  eventSaveText.textContent = "Save Event";
+  eventName.value = "";
+  eventDescription.value = "";
+  eventLink.value = "";
+  eventDate.value = "";
+  setEventFormEnabled(true);
+}
+
+async function openEventModalForEdit(eventId) {
+  editingEventId = eventId;
+  if (eventModalLabel) {
+    eventModalLabel.textContent = "Edit Event";
+  }
+  eventSaveText.textContent = "Update Event";
+  setEventFormEnabled(false);
+  try {
+    const snap = await getDoc(doc(db, "event", eventId));
+    if (!snap.exists()) {
+      editingEventId = null;
+      createToast("Event not found.", false);
+      return;
+    }
+    const data = snap.data();
+    eventName.value = data.name || "";
+    eventDescription.value = data.description || "";
+    eventLink.value = data.link || "";
+    if (data.date && typeof data.date.toDate === "function") {
+      const jsDate = data.date.toDate();
+      eventDate.value = jsDate.toISOString().slice(0, 10);
+    } else {
+      eventDate.value = "";
+    }
+    eventModalInstance = bootstrap.Modal.getOrCreateInstance(eventModalElement);
+    eventModalInstance.show();
+  } catch (error) {
+    editingEventId = null;
+    createToast(error.message, false);
+  } finally {
+    setEventFormEnabled(true);
+  }
+}
+
+function closeEventModal() {
+  eventModalInstance = bootstrap.Modal.getOrCreateInstance(eventModalElement);
+  eventModalInstance.hide();
+}
+
+async function updateEvent(eventId) {
+  const payload = {
+    name: eventName.value,
+    description: eventDescription.value,
+    link: eventLink.value,
+    date: Timestamp.fromDate(eventDate.valueAsDate),
+  };
+  await updateDoc(doc(db, "event", eventId), payload);
 }
 
 function populateBoardMember(id, boardMember) {
@@ -416,14 +491,20 @@ eventSave.addEventListener("click", async function (event) {
     "Saving Event...",
   );
   try {
-    await createEvent();
+    if (editingEventId) {
+      await updateEvent(editingEventId);
+      createToast("Updated event successfully.", true);
+    } else {
+      await createEvent();
+      createToast("Created event successfully.", true);
+    }
+    closeEventModal();
+    editingEventId = null;
     eventName.value = "";
     eventDescription.value = "";
     eventLink.value = "";
     eventDate.value = "";
-    eventList.innerHTML = "";
     await loadEvents();
-    createToast("Created event successfully.", true);
   } catch (error) {
     createToast(error.message, false);
   } finally {
@@ -431,7 +512,7 @@ eventSave.addEventListener("click", async function (event) {
       eventSave,
       eventSaveSpinner,
       eventSaveText,
-      "Save Event",
+      editingEventId ? "Update Event" : "Save Event",
     );
   }
 });
@@ -446,7 +527,14 @@ eventList.addEventListener("click", async function (event) {
   const eventItem = event.target.closest("[data-id]");
   const eventId = eventItem ? eventItem.dataset.id : null;
   if (editButton) {
-    console.log("edit", eventId);
+    if (!ensureAdmin()) {
+      return;
+    }
+    if (!eventId) {
+      createToast("Could not determine which event to edit.", false);
+      return;
+    }
+    await openEventModalForEdit(eventId);
     return;
   }
   if (!ensureAdmin()) {
@@ -464,7 +552,7 @@ eventList.addEventListener("click", async function (event) {
     deleteButton.disabled = true;
   }
   try {
-    await deleteEvent(eventId);
+    await deleteEventById(eventId);
     await loadEvents();
     createToast("Deleted event successfully.", true);
   } catch (error) {
@@ -475,6 +563,12 @@ eventList.addEventListener("click", async function (event) {
     }
   }
 });
+
+if (addEventButton) {
+  addEventButton.addEventListener("click", () => {
+    openEventModalForCreate();
+  });
+}
 
 setAdminUiEnabled(false);
 setAdminVisibility(false);
