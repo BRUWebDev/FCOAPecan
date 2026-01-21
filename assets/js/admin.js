@@ -1,21 +1,24 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import {
-  Timestamp,
+  addDoc,
   collection,
   doc,
+  getDoc,
   getDocs,
-  addDoc,
   getFirestore,
-  updateDoc,
+  orderBy,
   query,
+  Timestamp,
+  updateDoc,
   writeBatch,
-  orderBy
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 import {
   getAuth,
   GoogleAuthProvider,
-  signInWithPopup
+  onAuthStateChanged,
+  signInWithPopup,
+  signOut,
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 const firebaseConfig = {
@@ -34,6 +37,7 @@ const provider = new GoogleAuthProvider();
 
 // Initialize Firestore
 const db = getFirestore(app);
+const auth = getAuth(app);
 
 let alertRef = null;
 const alertSwitch = document.getElementById("alert-switch");
@@ -57,6 +61,14 @@ const eventLink = document.getElementById("event-link");
 const eventDate = document.getElementById("event-date");
 const eventList = document.getElementById("event-list");
 const toast = document.getElementById("toast");
+const adminDashboard = document.getElementById("admin-dashboard");
+const adminLogin = document.getElementById("admin-login");
+const adminLoginButton = document.getElementById("admin-login-button");
+const adminUserAvatar = document.getElementById("admin-user-avatar");
+const adminUserName = document.getElementById("admin-user-name");
+const adminLogout = document.getElementById("admin-logout");
+let isAdmin = false;
+let authPromptInFlight = false;
 
 const months = [
   "Jan",
@@ -112,7 +124,7 @@ async function updateAlert() {
 
 async function updateAlertStatus() {
   await updateDoc(alertRef, {
-    active: alertSwitch.checked
+    active: alertSwitch.checked,
   });
 }
 
@@ -154,8 +166,8 @@ async function createEvent() {
     name: eventName.value,
     description: eventDescription.value,
     link: eventLink.value,
-    date: Timestamp.fromDate(eventDate.valueAsDate)
-  }
+    date: Timestamp.fromDate(eventDate.valueAsDate),
+  };
   await addDoc(collection(db, "event"), event);
 }
 
@@ -221,44 +233,162 @@ function createToast(message, success) {
   toastBootstrap.show();
 }
 
+const adminControls = [
+  alertSwitch,
+  alertTitle,
+  alertMessage,
+  alertSave,
+  boardSave,
+  eventSave,
+  eventName,
+  eventDescription,
+  eventLink,
+  eventDate,
+];
+
+function setAdminUiEnabled(enabled) {
+  adminControls.forEach((control) => {
+    if (control) {
+      control.disabled = !enabled;
+    }
+  });
+}
+
+function setAdminVisibility(showDashboard) {
+  if (adminDashboard) {
+    adminDashboard.classList.toggle("d-none", !showDashboard);
+  }
+  if (adminLogin) {
+    adminLogin.classList.toggle("d-none", showDashboard);
+  }
+}
+
+function promptLogin() {
+  if (authPromptInFlight) {
+    return;
+  }
+  authPromptInFlight = true;
+  signInWithPopup(auth, provider)
+    .catch((error) => {
+      setAdminUiEnabled(false);
+      setAdminVisibility(false);
+      createToast(error.message, false);
+    })
+    .finally(() => {
+      authPromptInFlight = false;
+    });
+}
+
+async function checkAdmin(user) {
+  try {
+    const adminRef = doc(db, "adminUsers", user.uid);
+    const adminSnap = await getDoc(adminRef);
+    const adminData = adminSnap.exists() ? adminSnap.data() : null;
+    isAdmin = !!(adminData && adminData.active === true);
+    setAdminUiEnabled(isAdmin);
+    setAdminVisibility(isAdmin);
+    if (isAdmin) {
+      if (adminUserAvatar) {
+        adminUserAvatar.src = user.photoURL || "";
+      }
+      if (adminUserName) {
+        adminUserName.textContent = user.displayName || user.email || "Admin";
+      }
+    }
+    if (!isAdmin) {
+      createToast("Not authorized", false);
+    }
+  } catch (error) {
+    isAdmin = false;
+    setAdminUiEnabled(false);
+    setAdminVisibility(false);
+    createToast(error.message, false);
+  }
+}
+
+function ensureAdmin() {
+  if (!isAdmin) {
+    createToast("Not authorized", false);
+    return false;
+  }
+  return true;
+}
+
 alertSwitch.addEventListener("change", async function (_) {
   try {
+    if (!ensureAdmin()) {
+      return;
+    }
     await updateAlertStatus();
     createToast("Updated alert status successfully.", true);
   } catch (error) {
     createToast(error.message, false);
   }
-})
+});
 
 alertSave.addEventListener("click", async function (event) {
   event.preventDefault();
-  setButtonStatusSaving(alertSave, alertSaveSpinner, alertSaveText, "Saving Alert...");
+  if (!ensureAdmin()) {
+    return;
+  }
+  setButtonStatusSaving(
+    alertSave,
+    alertSaveSpinner,
+    alertSaveText,
+    "Saving Alert...",
+  );
   try {
     await updateAlert();
     createToast("Updated alert successfully.", true);
   } catch (error) {
     createToast(error.message, false);
   } finally {
-    setButtonStatusDone(alertSave, alertSaveSpinner, alertSaveText, "Save Alert");
+    setButtonStatusDone(
+      alertSave,
+      alertSaveSpinner,
+      alertSaveText,
+      "Save Alert",
+    );
   }
-})
+});
 
 boardSave.addEventListener("click", async function (event) {
   event.preventDefault();
-  setButtonStatusSaving(boardSave, boardSaveSpinner, boardSaveText, "Saving Board...");
+  if (!ensureAdmin()) {
+    return;
+  }
+  setButtonStatusSaving(
+    boardSave,
+    boardSaveSpinner,
+    boardSaveText,
+    "Saving Board...",
+  );
   try {
     await updateBoard();
     createToast("Updated board successfully.", true);
   } catch (error) {
     createToast(error.message, false);
   } finally {
-    setButtonStatusDone(boardSave, boardSaveSpinner, boardSaveText, "Save Board");
+    setButtonStatusDone(
+      boardSave,
+      boardSaveSpinner,
+      boardSaveText,
+      "Save Board",
+    );
   }
-})
+});
 
 eventSave.addEventListener("click", async function (event) {
   event.preventDefault();
-  setButtonStatusSaving(eventSave, eventSaveSpinner, eventSaveText, "Saving Event...");
+  if (!ensureAdmin()) {
+    return;
+  }
+  setButtonStatusSaving(
+    eventSave,
+    eventSaveSpinner,
+    eventSaveText,
+    "Saving Event...",
+  );
   try {
     await createEvent();
     eventName.value = "";
@@ -271,9 +401,14 @@ eventSave.addEventListener("click", async function (event) {
   } catch (error) {
     createToast(error.message, false);
   } finally {
-    setButtonStatusDone(eventSave, eventSaveSpinner, eventSaveText, "Save Event");
+    setButtonStatusDone(
+      eventSave,
+      eventSaveSpinner,
+      eventSaveText,
+      "Save Event",
+    );
   }
-})
+});
 
 eventList.addEventListener("click", function (event) {
   const editButton = event.target.closest(".js-event-edit");
@@ -291,23 +426,36 @@ eventList.addEventListener("click", function (event) {
   console.log("delete", eventId);
 });
 
-const auth = getAuth();
-signInWithPopup(auth, provider)
-  .then((result) => {
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
-    // The signed-in user info.
-    const user = result.user;
-    // IdP data available using getAdditionalUserInfo(result)
-    // ...
-  }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.customData.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
+setAdminUiEnabled(false);
+setAdminVisibility(false);
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    checkAdmin(user);
+    return;
+  }
+
+  if (adminUserAvatar) {
+    adminUserAvatar.src = "";
+  }
+  if (adminUserName) {
+    adminUserName.textContent = "";
+  }
+  setAdminUiEnabled(false);
+  setAdminVisibility(false);
+});
+
+if (adminLoginButton) {
+  adminLoginButton.addEventListener("click", () => {
+    promptLogin();
   });
+}
+
+if (adminLogout) {
+  adminLogout.addEventListener("click", async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      createToast(error.message, false);
+    }
+  });
+}
