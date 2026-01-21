@@ -12,7 +12,11 @@ import {
   orderBy
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
-import { GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAuYEi15PsLxxQqEg_J_2F3v5w-U8YqFHs",
@@ -113,9 +117,9 @@ async function updateAlertStatus() {
 }
 
 function populateEvent(event) {
-  console.log(event);
   const eventHTML = document.createElement("li");
   eventHTML.classList.add("list-group-item", "card-event", "mb-3");
+  eventHTML.dataset.id = event.id;
   eventHTML.innerHTML = `
     <div class="row text-color">
       <div class="col-2 mt-1">
@@ -124,11 +128,21 @@ function populateEvent(event) {
           <h5 class="text-heading">${months[event.date.getUTCMonth()]} ${event.date.getUTCFullYear()}</h5>
         </div>
       </div>
-      <div class="col-10 col-md-8 mt-1">
+      <div class="col-9 col-md-8 mt-1">
         <div class="d-block">
           <h4 class="text-heading">${event.name}</h4>
           <p>${event.description}</p>
           <p><b>Link:</b> <a href="${event.link}" target="_blank">${event.link}</a></p>
+        </div>
+      </div>
+      <div class="col-1 mt-1">
+        <div class="d-block">
+          <button type="button" class="btn btn-warning js-event-edit">
+            <i class="fa-solid fa-pen"></i>
+          </button>
+          <button type="button" class="btn btn-danger js-event-delete">
+            <i class="fa-solid fa-trash"></i>
+          </button>
         </div>
       </div>
     </div>`;
@@ -142,7 +156,6 @@ async function createEvent() {
     link: eventLink.value,
     date: Timestamp.fromDate(eventDate.valueAsDate)
   }
-  console.log(event);
   await addDoc(collection(db, "event"), event);
 }
 
@@ -154,8 +167,7 @@ async function loadEvents() {
     let event = doc.data();
     const timestamp = new Timestamp(event.date.seconds, event.date.nanoseconds);
     event.date = timestamp.toDate();
-    console.log(event.date);
-    populateEvent(event);
+    populateEvent({ id: doc.id, ...event });
   });
 }
 
@@ -237,6 +249,22 @@ eventSave.addEventListener("click", async function (event) {
   setButtonStatusDone(eventSave, eventSaveSpinner, eventSaveText, "Save Event");
   createToast("Created event successfully.", true);
 })
+
+eventList.addEventListener("click", function (event) {
+  const editButton = event.target.closest(".js-event-edit");
+  const deleteButton = event.target.closest(".js-event-delete");
+  if (!editButton && !deleteButton) {
+    return;
+  }
+
+  const eventItem = event.target.closest("[data-id]");
+  const eventId = eventItem ? eventItem.dataset.id : null;
+  if (editButton) {
+    console.log("edit", eventId);
+    return;
+  }
+  console.log("delete", eventId);
+});
 
 const auth = getAuth();
 signInWithPopup(auth, provider)
