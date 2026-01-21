@@ -3,10 +3,12 @@
     "@firebase/rules-unit-testing": "^5.0.0",
     "firebase-tools": "^15.3.1",
     "mocha": "^11.7.5",
+    "mochawesome": "^7.1.4",
     "prettier": "^3.6.2"
   },
   "scripts": {
     "test:rules": "mocha --exit test/*.test.js",
-    "test:rules:emulator": "firebase emulators:exec \"npm run test:rules\""
+    "test:rules:report": "mocha --exit test/*.test.js --reporter mochawesome --reporter-options reportDir=reports/mocha,reportFilename=firestore-rules,inlineAssets=true",
+    "test:rules:emulator": "firebase emulators:exec \"npm run test:rules:report\""
   }
 }
