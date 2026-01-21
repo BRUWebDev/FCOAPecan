@@ -23,7 +23,10 @@ service cloud.firestore {
     }
 
     match /adminUsers/{uid} {
-      allow read, write: if isAdmin();
+      // Self-read allows the client to check allowlist status without circular rules.
+      allow read: if request.auth != null && request.auth.uid == uid;
+      // Writes are restricted to privileged tooling (Firebase console/admin SDK).
+      allow write: if false;
     }
 
     match /{document=**} {

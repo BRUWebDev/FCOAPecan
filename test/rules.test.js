@@ -7,7 +7,7 @@ const {
   RulesTestEnvironment,
 } = require("@firebase/rules-unit-testing");
 const fs = require("fs");
-const { getFirestore, collection, doc, setDoc, getDocs } = require("firebase/firestore");
+const { getFirestore, collection, doc, setDoc, getDocs, getDoc } = require("firebase/firestore");
 
 const PROJECT_ID = "fcoapecan-test"; // arbitrary for emulator
 
@@ -110,6 +110,40 @@ describe("Firestore security rules", function () {
       setDoc(doc(db, "event", "ev-admin"), {
         name: "Board Meeting",
         date: Date.now(),
+      }),
+    );
+  });
+
+  it("allows authenticated user to read their own adminUsers doc", async () => {
+    const db = getAuthedFirestore({
+      uid: "admin-uid",
+      email: "admin@example.com",
+    });
+    await assertSucceeds(getDoc(doc(db, "adminUsers", "admin-uid")));
+  });
+
+  it("denies authenticated user reading another adminUsers doc", async () => {
+    const db = getAuthedFirestore({
+      uid: "regular-uid",
+      email: "user@example.com",
+    });
+    await assertFails(getDoc(doc(db, "adminUsers", "admin-uid")));
+  });
+
+  it("denies unauthenticated reads of adminUsers doc", async () => {
+    const db = getAuthedFirestore(null);
+    await assertFails(getDoc(doc(db, "adminUsers", "admin-uid")));
+  });
+
+  it("denies admin writes to adminUsers from clients", async () => {
+    const db = getAuthedFirestore({
+      uid: "admin-uid",
+      email: "admin@example.com",
+    });
+    await assertFails(
+      setDoc(doc(db, "adminUsers", "some-uid"), {
+        email: "x",
+        active: true,
       }),
     );
   });
