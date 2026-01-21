@@ -2,6 +2,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebas
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -148,10 +149,10 @@ function populateEvent(event) {
         </div>
       </div>
       <div class="col-12 col-lg-1 my-1 d-flex flex-column justify-content-center gap-1 gap-lg-3">
-        <button type="button" class="btn btn-warning btn-event-action">
+        <button type="button" class="btn btn-warning btn-event-action js-event-edit">
           <i class="fa-solid fa-pen"></i>
         </button>
-        <button type="button" class="btn btn-danger btn-event-action">
+        <button type="button" class="btn btn-danger btn-event-action js-event-delete">
           <i class="fa-solid fa-trash"></i>
         </button>
       </div>
@@ -169,7 +170,12 @@ async function createEvent() {
   await addDoc(collection(db, "event"), event);
 }
 
+async function deleteEvent(eventId) {
+  await deleteDoc(doc(db, "event", eventId));
+}
+
 async function loadEvents() {
+  eventList.innerHTML = "";
   const eventCollectionRef = collection(db, "event");
   const q = query(eventCollectionRef, orderBy("date"));
   const querySnapshot = await getDocs(q);
@@ -430,7 +436,7 @@ eventSave.addEventListener("click", async function (event) {
   }
 });
 
-eventList.addEventListener("click", function (event) {
+eventList.addEventListener("click", async function (event) {
   const editButton = event.target.closest(".js-event-edit");
   const deleteButton = event.target.closest(".js-event-delete");
   if (!editButton && !deleteButton) {
@@ -443,7 +449,31 @@ eventList.addEventListener("click", function (event) {
     console.log("edit", eventId);
     return;
   }
-  console.log("delete", eventId);
+  if (!ensureAdmin()) {
+    return;
+  }
+  if (!eventId || !eventItem) {
+    createToast("Event not found.", false);
+    return;
+  }
+  const confirmed = window.confirm("Delete this event?");
+  if (!confirmed) {
+    return;
+  }
+  if (deleteButton) {
+    deleteButton.disabled = true;
+  }
+  try {
+    await deleteEvent(eventId);
+    await loadEvents();
+    createToast("Deleted event successfully.", true);
+  } catch (error) {
+    createToast(error.message, false);
+  } finally {
+    if (deleteButton) {
+      deleteButton.disabled = false;
+    }
+  }
 });
 
 setAdminUiEnabled(false);
