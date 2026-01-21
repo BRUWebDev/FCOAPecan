@@ -140,19 +140,19 @@ function populateEvent(event) {
           <h5 class="text-heading">${months[event.date.getUTCMonth()]} ${event.date.getUTCFullYear()}</h5>
         </div>
       </div>
-      <div class="col-9 col-md-8 mt-1">
+      <div class="col-9 mt-1">
         <div class="d-block">
           <h4 class="text-heading">${event.name}</h4>
           <p>${event.description}</p>
           <p><b>Link:</b> <a href="${event.link}" target="_blank">${event.link}</a></p>
         </div>
       </div>
-      <div class="col-1 mt-1">
-        <div class="d-block">
-          <button type="button" class="btn btn-warning js-event-edit">
+      <div class="col-1 my-1">
+        <div class="d-flex flex-column justify-content-end h-100">
+          <button type="button" class="btn btn-warning h-50">
             <i class="fa-solid fa-pen"></i>
           </button>
-          <button type="button" class="btn btn-danger js-event-delete">
+          <button type="button" class="btn btn-danger h-50">
             <i class="fa-solid fa-trash"></i>
           </button>
         </div>
