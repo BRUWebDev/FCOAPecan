@@ -147,11 +147,11 @@ function populateEvent(event) {
           <p><b>Link:</b> <a href="${event.link}" target="_blank">${event.link}</a></p>
         </div>
       </div>
-      <div class="col-10 col-lg-1 my-1 d-flex flex-column justify-content-end">
-        <button type="button" class="btn btn-warning flex-fill">
+      <div class="col-12 col-lg-1 my-1 d-flex flex-column justify-content-center gap-1 gap-lg-3">
+        <button type="button" class="btn btn-warning btn-event-action">
           <i class="fa-solid fa-pen"></i>
         </button>
-        <button type="button" class="btn btn-danger flex-fill">
+        <button type="button" class="btn btn-danger btn-event-action">
           <i class="fa-solid fa-trash"></i>
         </button>
       </div>
