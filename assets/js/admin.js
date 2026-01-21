@@ -69,6 +69,8 @@ const adminUserName = document.getElementById("admin-user-name");
 const adminLogout = document.getElementById("admin-logout");
 let isAdmin = false;
 let authPromptInFlight = false;
+let adminDataLoaded = false;
+let adminDataLoading = false;
 
 const months = [
   "Jan",
@@ -112,8 +114,6 @@ async function loadAlert() {
   setAlertRef(querySnapshot.docs[0].id);
   populateAlert(querySnapshot.docs[0].data());
 }
-
-loadAlert();
 
 async function updateAlert() {
   await updateDoc(alertRef, {
@@ -183,8 +183,6 @@ async function loadEvents() {
   });
 }
 
-loadEvents();
-
 function populateBoardMember(id, boardMember) {
   switch (id) {
     case "president":
@@ -204,8 +202,6 @@ async function loadBoard() {
     populateBoardMember(doc.id, doc.data());
   });
 }
-
-loadBoard();
 
 async function updateBoard() {
   const batch = writeBatch(db);
@@ -263,6 +259,30 @@ function setAdminVisibility(showDashboard) {
   }
 }
 
+async function initializeAdminDashboard() {
+  if (adminDataLoaded || adminDataLoading) {
+    return;
+  }
+  adminDataLoading = true;
+  setAdminUiEnabled(false);
+  setAdminVisibility(false);
+  try {
+    await loadAlert();
+    await loadEvents();
+    await loadBoard();
+    adminDataLoaded = true;
+    setAdminUiEnabled(true);
+    setAdminVisibility(true);
+  } catch (error) {
+    adminDataLoaded = false;
+    createToast(error.message, false);
+    setAdminUiEnabled(false);
+    setAdminVisibility(false);
+  } finally {
+    adminDataLoading = false;
+  }
+}
+
 function promptLogin() {
   if (authPromptInFlight) {
     return;
@@ -285,8 +305,6 @@ async function checkAdmin(user) {
     const adminSnap = await getDoc(adminRef);
     const adminData = adminSnap.exists() ? adminSnap.data() : null;
     isAdmin = !!(adminData && adminData.active === true);
-    setAdminUiEnabled(isAdmin);
-    setAdminVisibility(isAdmin);
     if (isAdmin) {
       if (adminUserAvatar) {
         adminUserAvatar.src = user.photoURL || "";
@@ -294,12 +312,16 @@ async function checkAdmin(user) {
       if (adminUserName) {
         adminUserName.textContent = user.displayName || user.email || "Admin";
       }
+      await initializeAdminDashboard();
+      return;
     }
-    if (!isAdmin) {
-      createToast("Not authorized", false);
-    }
+    adminDataLoaded = false;
+    setAdminUiEnabled(false);
+    setAdminVisibility(false);
+    createToast("Not authorized", false);
   } catch (error) {
     isAdmin = false;
+    adminDataLoaded = false;
     setAdminUiEnabled(false);
     setAdminVisibility(false);
     createToast(error.message, false);
@@ -434,6 +456,7 @@ onAuthStateChanged(auth, (user) => {
     return;
   }
 
+  adminDataLoaded = false;
   if (adminUserAvatar) {
     adminUserAvatar.src = "";
   }
