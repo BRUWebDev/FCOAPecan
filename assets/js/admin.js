@@ -76,7 +76,7 @@ const months = [
 function populateAlert(alert) {
   alertSwitch.checked = alert.active;
   alertTitle.value = alert.title;
-  alertMessage.textContent = alert.message;
+  alertMessage.value = alert.message;
 }
 
 function setAlertRef(alertId) {
