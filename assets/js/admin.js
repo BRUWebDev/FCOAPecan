@@ -221,33 +221,58 @@ function createToast(message, success) {
   toastBootstrap.show();
 }
 
-alertSwitch.addEventListener("change", async function(_) {
-  updateAlertStatus();
-  createToast("Updated alert status successfully.", true);
+alertSwitch.addEventListener("change", async function (_) {
+  try {
+    await updateAlertStatus();
+    createToast("Updated alert status successfully.", true);
+  } catch (error) {
+    createToast(error.message, false);
+  }
 })
 
 alertSave.addEventListener("click", async function (event) {
   event.preventDefault();
   setButtonStatusSaving(alertSave, alertSaveSpinner, alertSaveText, "Saving Alert...");
-  updateAlert();
-  setButtonStatusDone(alertSave, alertSaveSpinner, alertSaveText, "Save Alert");
-  createToast("Updated alert successfully.", true);
+  try {
+    await updateAlert();
+    createToast("Updated alert successfully.", true);
+  } catch (error) {
+    createToast(error.message, false);
+  } finally {
+    setButtonStatusDone(alertSave, alertSaveSpinner, alertSaveText, "Save Alert");
+  }
 })
 
 boardSave.addEventListener("click", async function (event) {
   event.preventDefault();
   setButtonStatusSaving(boardSave, boardSaveSpinner, boardSaveText, "Saving Board...");
-  updateBoard();
-  setButtonStatusDone(boardSave, boardSaveSpinner, boardSaveText, "Save Board");
-  createToast("Updated board successfully.", true);
+  try {
+    await updateBoard();
+    createToast("Updated board successfully.", true);
+  } catch (error) {
+    createToast(error.message, false);
+  } finally {
+    setButtonStatusDone(boardSave, boardSaveSpinner, boardSaveText, "Save Board");
+  }
 })
 
 eventSave.addEventListener("click", async function (event) {
   event.preventDefault();
   setButtonStatusSaving(eventSave, eventSaveSpinner, eventSaveText, "Saving Event...");
-  createEvent();
-  setButtonStatusDone(eventSave, eventSaveSpinner, eventSaveText, "Save Event");
-  createToast("Created event successfully.", true);
+  try {
+    await createEvent();
+    eventName.value = "";
+    eventDescription.value = "";
+    eventLink.value = "";
+    eventDate.value = "";
+    eventList.innerHTML = "";
+    await loadEvents();
+    createToast("Created event successfully.", true);
+  } catch (error) {
+    createToast(error.message, false);
+  } finally {
+    setButtonStatusDone(eventSave, eventSaveSpinner, eventSaveText, "Save Event");
+  }
 })
 
 eventList.addEventListener("click", function (event) {
