@@ -5,6 +5,7 @@ import {
   getDocs,
   query,
   orderBy,
+  where,
   getFirestore,
   Timestamp
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
@@ -40,6 +41,8 @@ const months = [
   "Nov",
   "Dec",
 ];
+
+const eventsContainer = document.getElementById("events-container");
 
 function populateAlert(alert) {
   if (alert.active) {
@@ -119,8 +122,23 @@ function populateEvent(event) {
 
 async function loadEvents() {
   const eventCollectionRef = collection(db, "event");
-  const q = query(eventCollectionRef, orderBy("date"));
+  const now = new Date();
+  const q = query(
+    eventCollectionRef,
+    where("date", ">=", Timestamp.fromDate(now)),
+    orderBy("date"),
+  );
   const querySnapshot = await getDocs(q);
+  console.log(querySnapshot.empty)
+  if (querySnapshot.empty) {
+    if (eventsContainer) {
+      eventsContainer.classList.add("d-none");
+    }
+    return;
+  }
+  if (eventsContainer) {
+    eventsContainer.classList.remove("d-none");
+  }
   querySnapshot.forEach((doc) => {
     let event = doc.data();
     const timestamp = new Timestamp(event.date.seconds, event.date.nanoseconds);

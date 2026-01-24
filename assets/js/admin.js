@@ -9,6 +9,7 @@ import {
   getFirestore,
   orderBy,
   query,
+  where,
   Timestamp,
   updateDoc,
   writeBatch,
@@ -179,10 +180,34 @@ async function deleteEventById(eventId) {
   await deleteDoc(doc(db, "event", eventId));
 }
 
+async function deletePastEvents() {
+  if (!ensureAdmin()) {
+    return;
+  }
+  const now = new Date();
+  const pastQuery = query(
+    collection(db, "event"),
+    where("date", "<", Timestamp.fromDate(now)),
+  );
+  const snapshot = await getDocs(pastQuery);
+  if (snapshot.empty) {
+    return;
+  }
+  const deletions = snapshot.docs.map((eventDoc) =>
+    deleteDoc(doc(db, "event", eventDoc.id)),
+  );
+  await Promise.all(deletions);
+}
+
 async function loadEvents() {
   eventList.innerHTML = "";
   const eventCollectionRef = collection(db, "event");
-  const q = query(eventCollectionRef, orderBy("date"));
+  const now = new Date();
+  const q = query(
+    eventCollectionRef,
+    where("date", ">=", Timestamp.fromDate(now)),
+    orderBy("date"),
+  );
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
     let event = doc.data();
@@ -347,6 +372,7 @@ async function initializeAdminDashboard() {
   setAdminVisibility(false);
   try {
     await loadAlert();
+    await deletePastEvents();
     await loadEvents();
     await loadBoard();
     adminDataLoaded = true;
