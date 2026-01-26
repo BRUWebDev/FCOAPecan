@@ -157,6 +157,20 @@ body {
     0 2px 8px var(--shadow-3);
 }
 
+.card-agent-form {
+  max-width: 300px;
+  margin: auto;
+  background-color: var(--primary-color);
+  color: var(--background-tertiary-color);
+  box-shadow:
+    0 1px 1px var(--shadow-1),
+    0 8px 15px var(--shadow-3);
+}
+
+.card-agent-form > .card-body > a {
+  color: var(--background-tertiary-color);
+}
+
 .container-carousel {
   display: flex;
   justify-content: center;
