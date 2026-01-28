@@ -97,7 +97,7 @@ function populateEvent(event) {
   if (event.link != "") {
     linkHtml = `
       <div class="col-12 col-md-2 d-flex align-items-center justify-content-center">
-        <a class="btn btn-event w-100" href="${event.link}" target="_blank">Learn More</a>
+        <a class="btn btn-event rounded-pill w-100" href="${event.link}" target="_blank">Learn More</a>
       </div>`;
   }
 
