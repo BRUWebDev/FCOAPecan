@@ -36,6 +36,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const provider = new GoogleAuthProvider();
+provider.setCustomParameters({ prompt: "select_account" });
 
 // Initialize Firestore
 const db = getFirestore(app);
@@ -424,12 +425,34 @@ async function checkAdmin(user) {
     setAdminUiEnabled(false);
     setAdminVisibility(false);
     createToast("Not authorized", false);
+    try {
+      await signOut(auth);
+    } catch (error) {
+      createToast(error.message, false);
+    }
+    if (adminUserAvatar) {
+      adminUserAvatar.src = "";
+    }
+    if (adminUserName) {
+      adminUserName.textContent = "";
+    }
   } catch (error) {
     isAdmin = false;
     adminDataLoaded = false;
     setAdminUiEnabled(false);
     setAdminVisibility(false);
     createToast(error.message, false);
+    try {
+      await signOut(auth);
+    } catch (signOutError) {
+      createToast(signOutError.message, false);
+    }
+    if (adminUserAvatar) {
+      adminUserAvatar.src = "";
+    }
+    if (adminUserName) {
+      adminUserName.textContent = "";
+    }
   }
 }
 
