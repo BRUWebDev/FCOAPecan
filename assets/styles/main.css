@@ -171,6 +171,16 @@ body {
   color: var(--background-tertiary-color);
 }
 
+.card-agent-form-text {
+  display: inline-block;
+  transition: all;
+  transition-duration: 200ms;
+}
+
+.card-agent-form-text:hover {
+  transform: translate(0, -2px);
+}
+
 .container-carousel {
   display: flex;
   justify-content: center;

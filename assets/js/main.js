@@ -129,7 +129,6 @@ async function loadEvents() {
     orderBy("date"),
   );
   const querySnapshot = await getDocs(q);
-  console.log(querySnapshot.empty)
   if (querySnapshot.empty) {
     if (eventsContainer) {
       eventsContainer.classList.add("d-none");
