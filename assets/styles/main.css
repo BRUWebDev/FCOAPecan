@@ -61,8 +61,20 @@ body {
 }
 
 .btn.btn-event:hover {
-  background-color: var(--background-secondary-color);
+  background-color: var(--background-tertiary-color);
   color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn.btn-owner-portal {
+  background-color: var(--background-secondary-color);
+  color: var(--heading-text-color);
+  border-color: var(--heading-text-color);
+}
+
+.btn.btn-owner-portal:hover {
+  background-color: var(--heading-text-color);
+  color: var(--background-secondary-color);
 }
 
 .btn.btn-community {
