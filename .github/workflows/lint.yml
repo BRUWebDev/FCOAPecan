@@ -1,23 +1,17 @@
 name: Linting
+
+on:
+  workflow_call:
+
 permissions:
   contents: read
   packages: read
   statuses: write
 
-on:
-  push:
-    branches:
-      - main
-      - development
-  pull_request:
-    branches:
-      - main
-      - development
-
 jobs:
-  Lint:
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

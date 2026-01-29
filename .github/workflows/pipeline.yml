@@ -1,0 +1,29 @@
+name: Pipeline
+
+on:
+  push:
+    branches: [main, development]
+  pull_request:
+    branches: [main, development]
+  workflow_dispatch:
+
+concurrency:
+  group: pipeline-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    uses: ./.github/workflows/lint.yml
+
+  test:
+    needs: [lint]
+    uses: ./.github/workflows/test.yml
+
+  codeql:
+    needs: [lint]
+    uses: ./.github/workflows/codeql.yml
+
+  deploy_development:
+    needs: [test, codeql]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/development'
+    uses: ./.github/workflows/deploy_development.yml
