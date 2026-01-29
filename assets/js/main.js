@@ -7,7 +7,7 @@ import {
   orderBy,
   where,
   getFirestore,
-  Timestamp
+  Timestamp,
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 const firebaseConfig = {

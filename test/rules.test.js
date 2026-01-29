@@ -4,10 +4,15 @@ const {
   initializeTestEnvironment,
   assertFails,
   assertSucceeds,
-  RulesTestEnvironment,
 } = require("@firebase/rules-unit-testing");
 const fs = require("fs");
-const { getFirestore, collection, doc, setDoc, getDocs, getDoc } = require("firebase/firestore");
+const {
+  collection,
+  doc,
+  setDoc,
+  getDocs,
+  getDoc,
+} = require("firebase/firestore");
 
 const PROJECT_ID = "fcoapecan-test"; // arbitrary for emulator
 
