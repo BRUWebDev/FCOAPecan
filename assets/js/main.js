@@ -106,7 +106,7 @@ function populateEvent(event) {
       <div class="col-2 mt-1">
         <div class="d-block">
           <h2>${event.date.getUTCDate()}</h2>
-          <h5 class="text-heading">${months[event.date.getUTCMonth()]} ${event.date.getUTCFullYear()}</h5>
+          <h6 class="text-heading">${months[event.date.getUTCMonth()]} ${event.date.getUTCFullYear()}</h6>
         </div>
       </div>
       <div class="col-10 col-md-8 mt-1">
