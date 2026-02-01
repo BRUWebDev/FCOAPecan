@@ -536,6 +536,14 @@ eventSave.addEventListener("click", async function (event) {
   if (!ensureAdmin()) {
     return;
   }
+  if (
+    !eventName.value.trim() ||
+    !eventDescription.value.trim() ||
+    !eventDate.value
+  ) {
+    createToast("Event name, description, and date are required.", false);
+    return;
+  }
   setButtonStatusSaving(
     eventSave,
     eventSaveSpinner,
