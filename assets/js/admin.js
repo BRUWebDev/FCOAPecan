@@ -1,3 +1,4 @@
+/* global bootstrap */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import {
   addDoc,
@@ -63,9 +64,9 @@ const eventDescription = document.getElementById("event-description");
 const eventLink = document.getElementById("event-link");
 const eventDate = document.getElementById("event-date");
 const eventList = document.getElementById("event-list");
-const eventModalLabel = document.getElementById("eventModalLabel");
-const eventModalElement = document.getElementById("eventModal");
-const addEventButton = document.querySelector('[data-bs-target="#eventModal"]');
+const eventModalLabel = document.getElementById("event-modal-label");
+const eventModalElement = document.getElementById("event-modal");
+const addEventButton = document.querySelector('[data-bs-target="#event-modal"]');
 const toast = document.getElementById("toast");
 const adminDashboard = document.getElementById("admin-dashboard");
 const adminLogin = document.getElementById("admin-login");
@@ -464,7 +465,7 @@ function ensureAdmin() {
   return true;
 }
 
-alertSwitch.addEventListener("change", async function (_) {
+alertSwitch.addEventListener("change", async function () {
   try {
     if (!ensureAdmin()) {
       return;

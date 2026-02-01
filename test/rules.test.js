@@ -1,5 +1,4 @@
-// test/rules.test.js
-const assert = require("assert");
+/* eslint-env mocha */
 const {
   initializeTestEnvironment,
   assertFails,

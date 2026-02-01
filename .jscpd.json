@@ -1,0 +1,10 @@
+{
+  "threshold": 0,
+  "reporters": ["console"],
+  "ignore": [
+    "**/assets/js/main.js",
+    "**/assets/js/admin.js",
+    "**/index.html",
+    "**/admin.html"
+  ]
+}
