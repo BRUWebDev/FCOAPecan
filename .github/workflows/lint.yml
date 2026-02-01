@@ -24,5 +24,6 @@ jobs:
           DEFAULT_BRANCH: main
           SAVE_SUPER_LINTER_SUMMARY: true
           ENABLE_GITHUB_ACTIONS_STEP_SUMMARY: true
+          GITLEAKS_CONFIG_FILE: .gitleaks.toml
           VALIDATE_JSCPD: false
-
+          LINTER_RULES_PATH: .github/linters

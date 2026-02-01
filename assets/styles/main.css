@@ -289,7 +289,7 @@ body {
 @media (width <= 991.99px) {
   .side-toolbar {
     position: fixed;
-    inset: auto 0 0 0;
+    inset: auto 0 0;
     transform: none;
     display: block;
     background-color: rgb(20 73 52 / 95%);
