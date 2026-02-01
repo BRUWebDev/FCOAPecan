@@ -66,7 +66,9 @@ const eventDate = document.getElementById("event-date");
 const eventList = document.getElementById("event-list");
 const eventModalLabel = document.getElementById("event-modal-label");
 const eventModalElement = document.getElementById("event-modal");
-const addEventButton = document.querySelector('[data-bs-target="#event-modal"]');
+const addEventButton = document.querySelector(
+  '[data-bs-target="#event-modal"]',
+);
 const toast = document.getElementById("toast");
 const adminDashboard = document.getElementById("admin-dashboard");
 const adminLogin = document.getElementById("admin-login");

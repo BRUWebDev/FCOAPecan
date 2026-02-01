@@ -1,4 +1,5 @@
 /* eslint-env mocha */
+
 const {
   initializeTestEnvironment,
   assertFails,

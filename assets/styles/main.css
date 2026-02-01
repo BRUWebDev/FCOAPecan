@@ -78,7 +78,7 @@ body {
 }
 
 .btn.btn-community {
-  background-color: rgb(var(--background-secondary-color-rgb) / 0.3);
+  background-color: rgb(var(--background-secondary-color-rgb) / 30%);
   border: solid 2px var(--background-secondary-color);
   color: var(--background-secondary-color);
   transition: all;
@@ -289,10 +289,10 @@ body {
 @media (width <= 991.99px) {
   .side-toolbar {
     position: fixed;
-    inset: auto, 0, 0, 0;
+    inset: auto 0 0 0;
     transform: none;
     display: block;
-    background: rgb(20 73 52 95%);
+    background-color: rgb(20 73 52 / 95%);
     backdrop-filter: blur(6px);
     padding: 8px 8px calc(6px + env(safe-area-inset-bottom));
     box-shadow:
