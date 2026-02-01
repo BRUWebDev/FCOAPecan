@@ -1,14 +1,12 @@
 title = "gitleaks config"
 
-[allowlist]
-description = "Allow known-public, domain-restricted web keys (Firebase config + Maps embed)."
+[[allowlists]]
+description = "Allow known-public, restricted browser keys (Firebase web config + Maps embed)."
 paths = [
-  '''assets/js/admin.js''',
-  '''assets/js/main.js''',
-  '''index.html'''
+  '''^assets/js/admin\.js$''',
+  '''^assets/js/main\.js$''',
+  '''^index\.html$'''
 ]
-
 regexes = [
-  '''apiKey:\s*"AIza[0-9A-Za-z\-_]{30,}"''',
-  '''maps/embed/v1/place\?[^"]*key=AIza[0-9A-Za-z\-_]{30,}'''
+  '''AIza[0-9A-Za-z\-_]{30,}'''
 ]
