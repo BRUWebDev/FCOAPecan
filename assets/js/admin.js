@@ -82,6 +82,8 @@ let adminDataLoaded = false;
 let adminDataLoading = false;
 let editingEventId = null;
 let eventModalInstance = null;
+  const startOfToday = new Date();
+  startOfToday.setUTCHours(0, 0, 0, 0);
 
 const months = [
   "Jan",
@@ -188,10 +190,9 @@ async function deletePastEvents() {
   if (!ensureAdmin()) {
     return;
   }
-  const now = new Date();
   const pastQuery = query(
     collection(db, "event"),
-    where("date", "<", Timestamp.fromDate(now)),
+    where("date", "<", Timestamp.fromDate(startOfToday)),
   );
   const snapshot = await getDocs(pastQuery);
   if (snapshot.empty) {
@@ -206,10 +207,9 @@ async function deletePastEvents() {
 async function loadEvents() {
   eventList.innerHTML = "";
   const eventCollectionRef = collection(db, "event");
-  const now = new Date();
   const q = query(
     eventCollectionRef,
-    where("date", ">=", Timestamp.fromDate(now)),
+    where("date", ">=", Timestamp.fromDate(startOfToday)),
     orderBy("date"),
   );
   const querySnapshot = await getDocs(q);

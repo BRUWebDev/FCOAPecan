@@ -120,10 +120,11 @@ function populateEvent(event) {
 
 async function loadEvents() {
   const eventCollectionRef = collection(db, "event");
-  const now = new Date();
+  const startOfToday = new Date();
+  startOfToday.setUTCHours(0, 0, 0, 0);
   const q = query(
     eventCollectionRef,
-    where("date", ">=", Timestamp.fromDate(now)),
+    where("date", ">=", Timestamp.fromDate(startOfToday)),
     orderBy("date"),
   );
   const querySnapshot = await getDocs(q);
