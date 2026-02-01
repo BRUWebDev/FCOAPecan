@@ -82,8 +82,8 @@ let adminDataLoaded = false;
 let adminDataLoading = false;
 let editingEventId = null;
 let eventModalInstance = null;
-  const startOfToday = new Date();
-  startOfToday.setUTCHours(0, 0, 0, 0);
+const startOfToday = new Date();
+startOfToday.setUTCHours(0, 0, 0, 0);
 
 const months = [
   "Jan",
