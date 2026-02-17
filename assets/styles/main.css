@@ -409,3 +409,7 @@ body {
 .card-agent-form-text:hover {
   transform: translate(0, -2px);
 }
+
+.card-title {
+  margin-bottom: 0;
+}
