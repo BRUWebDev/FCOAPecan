@@ -1,0 +1,12 @@
+{
+  "root": true,
+  "overrides": [
+    {
+      "files": ["**/test/**/*.js", "**/*.test.js"],
+      "env": {
+        "mocha": true,
+        "node": true
+      }
+    }
+  ]
+}

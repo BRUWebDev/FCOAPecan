@@ -1,0 +1,12 @@
+title = "gitleaks config"
+
+[[allowlists]]
+description = "Allow known-public, restricted browser keys (Firebase web config + Maps embed)."
+paths = [
+  '''^assets/js/admin\.js$''',
+  '''^assets/js/main\.js$''',
+  '''^index\.html$'''
+]
+regexes = [
+  '''AIza[0-9A-Za-z\-_]{30,}'''
+]

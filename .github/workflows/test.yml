@@ -1,0 +1,41 @@
+name: Test security rules
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Tests
+        env:
+          FIREBASE_DEBUG: "true"
+        run: npm run test:rules:emulator
+
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: firestore-rules-report
+          path: reports/mocha

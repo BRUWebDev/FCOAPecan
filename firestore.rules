@@ -1,0 +1,36 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAdmin() {
+      return request.auth != null
+        && exists(/databases/$(database)/documents/adminUsers/$(request.auth.uid))
+        && get(/databases/$(database)/documents/adminUsers/$(request.auth.uid)).data.active == true;
+    }
+
+    match /alert/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /event/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /board/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /adminUsers/{uid} {
+      // Self-read allows the client to check allowlist status without circular rules.
+      allow read: if request.auth != null && request.auth.uid == uid;
+      // Writes are restricted to privileged tooling (Firebase console/admin SDK).
+      allow write: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

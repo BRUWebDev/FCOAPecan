@@ -1,0 +1,304 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <title>FCOA Pecan Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./assets/styles/main.css" />
+    <link rel="stylesheet" href="./assets/styles/admin.css" />
+  </head>
+  <body>
+    <div id="admin-dashboard" class="container d-none">
+      <div class="d-flex align-items-center justify-content-between my-5">
+        <h1 class="text-heading mb-0">FCOA Admin Dashboard</h1>
+        <div class="dropdown">
+          <button
+            class="btn btn-link p-0 border-0"
+            type="button"
+            id="admin-user-menu"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <img
+              id="admin-user-avatar"
+              src="./assets/media/default_user.png"
+              alt="User avatar"
+              width="40"
+              height="40"
+              class="rounded-circle"
+            />
+          </button>
+          <ul
+            class="dropdown-menu dropdown-menu-end"
+            aria-labelledby="admin-user-menu"
+          >
+            <li>
+              <span id="admin-user-name" class="dropdown-item-text"></span>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <button id="admin-logout" class="dropdown-item" type="button">
+                Logout
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="background-secondary-color p-4 rounded">
+        <form>
+          <div class="row mt-3">
+            <div class="col-3 col-sm-2 col-xl-1">
+              <h3 class="text-heading">Alert</h3>
+            </div>
+            <div class="col-1 d-flex align-items-center">
+              <div class="form-check form-switch form-check-reverse">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="alert-switch"
+                />
+                <label
+                  class="form-check-label text-form-heading"
+                  for="switchCheckReverse"
+                  >Active</label
+                >
+              </div>
+            </div>
+            <div class="col text-end">
+              <button type="submit" id="alert-save" class="btn btn-primary">
+                <span
+                  id="alert-save-spinner"
+                  class="spinner-border spinner-border-sm visually-hidden"
+                  aria-hidden="true"
+                ></span>
+                <span id="alert-save-text">Save Alert</span>
+              </button>
+            </div>
+          </div>
+          <hr />
+          <div class="mb-3">
+            <label for="alert-title" class="form-label text-form-heading"
+              >Title</label
+            >
+            <input type="text" id="alert-title" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label for="alert-message" class="form-label text-form-heading"
+              >Message</label
+            >
+            <textarea
+              type="text"
+              id="alert-message"
+              class="form-control"
+            ></textarea>
+          </div>
+
+          <div class="row mt-5">
+            <div class="col">
+              <h3 class="text-heading mt-5 d-inline">Events</h3>
+            </div>
+            <div class="col text-end">
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#event-modal"
+              >
+                Add Event
+              </button>
+            </div>
+          </div>
+          <hr />
+          <div class="mb-3">
+            <ul id="event-list" class="list-group list-unstyled">
+              <!-- Event items will be dynamically added here -->
+            </ul>
+          </div>
+
+          <div class="row mt-5">
+            <div class="col">
+              <h3 class="text-heading">Board</h3>
+            </div>
+            <div class="col text-end">
+              <button type="submit" id="board-save" class="btn btn-primary">
+                <span
+                  id="board-save-spinner"
+                  class="spinner-border spinner-border-sm visually-hidden"
+                  aria-hidden="true"
+                ></span>
+                <span id="board-save-text">Save Board</span>
+              </button>
+            </div>
+          </div>
+          <hr />
+          <div class="mb-3">
+            <label
+              for="board-president-name"
+              class="form-label text-form-heading"
+              >President</label
+            >
+            <input type="text" id="board-president-name" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label
+              for="board-treasurer-name"
+              class="form-label text-form-heading"
+              >Treasurer</label
+            >
+            <input type="text" id="board-treasurer-name" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label
+              for="board-secretary-name"
+              class="form-label text-form-heading"
+              >Secretary</label
+            >
+            <input type="text" id="board-secretary-name" class="form-control" />
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="admin-login" class="container d-none">
+      <div class="my-5 text-center">
+        <h1 class="text-heading my-5">FCOA Admin Dashboard</h1>
+        <button type="button" id="admin-login-button" class="btn btn-primary">
+          Sign in with Google
+        </button>
+      </div>
+    </div>
+
+    <footer>
+      <div class="text-center m-5">
+        <a href="https://bruwebdev.com" target="_blank">
+          <img
+            src="./assets/media/logo_white.svg"
+            alt="BRU Web Development Logo"
+            height="60rem"
+          />
+        </a>
+      </div>
+    </footer>
+
+    <div
+      class="modal fade"
+      id="event-modal"
+      tabindex="-1"
+      aria-labelledby="event-modal-label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5 text-heading" id="event-modal-label">
+              Add Event
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="event-name" class="form-label text-form-heading"
+                  >Event</label
+                >
+                <input
+                  type="text"
+                  id="event-name"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label
+                  for="event-description"
+                  class="form-label text-form-heading"
+                  >Description</label
+                >
+                <textarea
+                  id="event-description"
+                  class="form-control"
+                  required
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="event-link" class="form-label text-form-heading"
+                  >Link</label
+                >
+                <input type="text" id="event-link" class="form-control" />
+              </div>
+              <div class="mb-3">
+                <label for="event-date" class="form-label text-form-heading"
+                  >Date</label
+                >
+                <input
+                  type="date"
+                  id="event-date"
+                  class="form-control"
+                  required
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="submit" id="event-save" class="btn btn-primary">
+              <span
+                id="event-save-spinner"
+                class="spinner-border spinner-border-sm visually-hidden"
+                aria-hidden="true"
+              ></span>
+              <span id="event-save-text">Save Event</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+      <div
+        id="toast"
+        class="toast align-items-center text-bg-danger border-0"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="d-flex">
+          <div id="toast-message" class="toast-body"></div>
+          <button
+            type="button"
+            class="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="./assets/js/admin.js"></script>
+  </body>
+</html>
